@@ -53,6 +53,10 @@ header {
     font-weight: bold;
 }
 
+.nav-links a:hover {
+    font-weight: bold;
+}
+
 #resto{
     font-family: Noto Sans;
     flex: center;
@@ -257,4 +261,9 @@ footer {
 
 .button{
     padding-top: 15px;
+}
+
+.divider {
+    margin: 20px 0;
+    border-bottom: 1px solid #ccc;
 }

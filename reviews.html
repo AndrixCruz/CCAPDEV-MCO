@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Reviews - Reviews</title>
+    <link rel="stylesheet" href="design.css">
+    <style>
+        .review-info {
+            display: none;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="nav-links">
+                    <div id="gitna">
+                        <div id="logo">Restaurant Reviews</div>
+                        <div id="resto"><a href="resto.html">•Home•</a></div>
+                        <div id="register"><a href="register.html">•Register•</a></div>
+                        <div id="login"><a href="login.html">•Login•</a></div>
+                        <div id="establishment"><a href="establishments.html">•View Establishments•</a></div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="establishments">
+        <div class="container">
+            <div id="title"><h2>List of Reviews</h2></div>
+            
+            <div class="establishment-card">
+                <div class="review-toggle">
+                    <div id="beast" class="sprite"></div>
+                    <h3>Beast Burger</h3>
+                    <p>Rating: 4.5/5</p>
+                    <button class="btn">Toggle Review</button>
+                </div>
+                <div class="review-info">
+                    <p>Name: Michael Jackson</p>
+                    <p>Date: February 10, 2022</p>
+                    <p>Review: The food made me go hee-hee!</p>
+                <hr class = "divider">
+                    <p>Name: Miku Miku</p>
+                    <p>Date: Oct 1, 2023</p>
+                    <p>Review: I'm Miku! The burgers were so yummy!</p>
+                </div>
+            </div>
+
+            <div class="establishment-card">
+                <div class="review-toggle">
+                    <div id="kalsada" class="sprite"></div>
+                    <h3>Kalsada Burger</h3>
+                    <p>Rating: 4.0/5</p>
+                    <button class="btn">Toggle Review</button>
+                </div>
+                <div class="review-info">
+                    <p>Name: Charles Leclerc</p>
+                    <p>Date: May 30, 2021</p>
+                    <p>Review: Not exactly the most delicious, but I'll take it.</p>
+                <hr class = "divider">
+                    <p>Name: Ishi Ople</p>
+                    <p>Date: Dec 1, 2022</p>
+                    <p>Review: First time palang, nainlove na ako. 10/10 would recommend.</p>
+                </div>
+            </div>
+
+            <div class="establishment-card">
+                <div class="review-toggle">
+                    <div id="bk" class="sprite"></div>
+                    <h3>Burger King</h3>
+                    <p>Rating: 4.8/5</p>
+                    <button class="btn">Toggle Review</button>
+                </div>
+                <div class="review-info">
+                    <p>Name: Skibidi Toilet</p>
+                    <p>Date: October 14, 2022</p>
+                    <p>Review: Tastes better than a toilet.</p>
+                <hr class = "divider">
+                    <p>Name: Pia Wurtzbach</p>
+                    <p>Date: July 16, 2023</p>
+                    <p>Review: When I crave really badly, they always have my back!</p>
+                </div>
+            </div>
+
+            <div class="establishment-card">
+                <div class="review-toggle">
+                    <div id="zarks" class="sprite"></div>
+                    <h3>Zark's</h3>
+                    <p>Rating: 4.8/5</p>
+                    <button class="btn">Toggle Review</button>
+                </div>
+                <div class="review-info">
+                    <p>Name: Zark's Fan</p>
+                    <p>Date: June 7, 2023</p>
+                    <p>Review: Zarks forever and ever and ever ever!!!!</p>
+                <hr class = "divider">
+                    <p>Name: Stephen Curry</p>
+                    <p>Date: September 15, 2022</p>
+                    <p>Review: It's good, but it's fast food. I need to keep my diet up!</p>
+                </div>
+            </div>
+
+            <div class="establishment-card">
+                <div class="review-toggle">
+                    <div id="tinuhog"></div>
+                    <h3>Tinuhog ni Benny</h3>
+                    <p>Rating: 4.8/5</p>
+                    <button class="btn">Toggle Review</button>
+                </div>
+                <div class="review-info">
+                    <p>Name: Pikumeen</p>
+                    <p>Date: November 4, 2021</p>
+                    <p>Review: Worth the immigration!</p>
+                <hr class = "divider">
+                    <p>Name: Delilah from New York City</p>
+                    <p>Date: March 21, 2022</p>
+                    <p>Review: The name is a little unique, and the food was ULTRA unique!</p>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Restaurant Reviews</p>
+        </div>
+    </footer>
+
+    <script>
+        const toggleButtons = document.querySelectorAll('.btn');
+        toggleButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                const reviewInfo = document.querySelectorAll('.review-info');
+                reviewInfo[index].style.display = reviewInfo[index].style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+</html>
