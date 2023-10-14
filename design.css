@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&family=Tsukimi+Rounded:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Nunito+Sans:opsz,wght@6..12,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Nunito+Sans:opsz,wght@6..12,200;6..12,600&display=swap');
+
 body, h1, h2, h3, p, ul, li {
     margin: 0;
     padding: 0;
@@ -5,7 +10,19 @@ body, h1, h2, h3, p, ul, li {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
+    background-image: url(bg1.png);
+    background-position: center;
+    background-size: 2944px 2397px;
+    background-repeat: no-repeat;
+}
+
+header {
+    background-color: transparent;
+    color: black;
+    padding: 10px 0;
+    position : -webkit-sticky;
+    position : sticky;
+    top: 0;
 }
 
 .container {
@@ -14,31 +31,42 @@ body {
     padding: 20px;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
+#gitna{
     align-items: center;
-}
-
-.nav-links {
-    list-style: none;
     display: flex;
 }
 
-.nav-links li {
-    margin-right: 20px;
+#logo{
+    font-family: Noto Sans;
+    font-size: 1.75rem;
+    font-weight: bold;
+    flex: 1;
+}
+
+#links{
+    margin: auto;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: #fff;
+    color: black;
     font-weight: bold;
+}
+
+#resto{
+    font-family: Noto Sans;
+    flex: center;
+    padding-right: 20px;
+}
+
+#register{
+    font-family: Noto Sans;
+    padding-right: 20px;
+}
+
+#login{
+    font-family: Noto Sans;
+    padding-right: 20px;
 }
 
 .hero {
@@ -46,14 +74,17 @@ nav {
     background-size: cover;
     background-position: center;
     text-align: center;
-    padding: 100px 0;
-    color: #fff;
+    padding: 100px 0px;
+    font-family: nunito sans;
+    color: black;
 }
 
 .hero h2 {
+    font-family: nunito sans;
+    font-weight: bold;
     font-size: 36px;
     margin-bottom: 20px;
-    color: #3d3535;
+    color: black;
 }
 
 .btn {
@@ -73,6 +104,7 @@ nav {
 
 .featured-restaurants {
     margin-top: 40px;
+    align-items: middle;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -84,7 +116,7 @@ nav {
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: calc(33.33% - 20px);
+    width: 400px;
     text-align: center;
 }
 
@@ -133,6 +165,7 @@ nav {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    align-items: center;
     text-decoration: none;
     color: #333;
     transition: transform 0.2s ease;
@@ -142,6 +175,7 @@ nav {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
+    align-items: center;
 }
 
 .establishment-card h3 {
@@ -164,4 +198,63 @@ footer {
     color: #fff;
     text-align: center;
     padding: 10px 0;
+}
+
+#regformat{
+    padding-bottom: 5px;
+}
+
+#regformat1{
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.form-group{
+    background-color: transparent;
+}
+
+.sprite{
+    background-image: url('sprites.png');
+    background-size: 545px 310px;
+    width: 133px;
+    height: 151px;
+    align-items: center;
+}
+
+#beast{
+    background-position: 258px -2px;
+    display : flex;
+}
+
+#kalsada{
+    background-position: 392px -2px;
+}
+
+#bk{
+    background-position: -12px 6px;
+}
+
+#zarks{
+    background-position: 132px 17px;
+}
+
+#tinuhog{
+    background-image: url(sprites.png);
+    background-position: 2px -431px;
+    background-size: 543px 310px;
+    width: 240px;
+    height: 102px;
+}
+
+#title{
+    font-family: nunito sans;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 15px;
+    align-items: center;
+    display: flex;
+}
+
+.button{
+    padding-top: 10px;
 }
