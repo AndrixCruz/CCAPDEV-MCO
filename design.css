@@ -9,10 +9,10 @@ body, h1, h2, h3, p, ul, li {
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Noto Sans, Nunito Sans;
     background-image: url(bg1.png);
     background-position: center;
-    background-size: 2944px 2397px;
+    background-size: 2944px 2420px;
     background-repeat: no-repeat;
 }
 
@@ -50,7 +50,7 @@ header {
 .nav-links a {
     text-decoration: none;
     color: black;
-    font-weight: bold;
+    font-weight: light;
 }
 
 .nav-links a:hover {
@@ -128,18 +128,21 @@ header {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
+    align-items: center;
 }
 
 .restaurant-card h3 {
     margin-top: 10px;
     font-size: 24px;
     color: #333;
+    align-items: center;
 }
 
 .restaurant-card p {
     margin: 10px 0;
     font-size: 16px;
     color: #777;
+    align-items: center;
 }
 
 .restaurant-card a {
@@ -160,6 +163,7 @@ header {
 .establishments {
     margin-top: 40px;
     text-align: center;
+    align-items: center;
 }
 
 .establishment-card {
@@ -228,6 +232,7 @@ footer {
 #beast{
     background-position: 258px -2px;
     display : flex;
+    align-items: center;
 }
 
 #kalsada{
@@ -266,4 +271,8 @@ footer {
 .divider {
     margin: 20px 0;
     border-bottom: 1px solid #ccc;
+}
+
+.currentPage{
+    font-weight: bold;
 }
