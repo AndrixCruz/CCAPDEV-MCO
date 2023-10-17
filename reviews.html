@@ -36,7 +36,7 @@
                     <div id="beast" class="sprite"></div>
                     <h3>Beast Burger</h3>
                     <p>Rating: 4.5/5</p>
-                    <button class="btn">Toggle Review</button>
+                    <button class="btn toggle-button">Toggle Review</button>
                 </div>
                 <div class="review-info">
                     <a href="user.html"><p>Name: Michael Jackson</p></a>
@@ -46,6 +46,13 @@
                     <p>Name: Miku Miku</p>
                     <p>Date: Oct 1, 2023</p>
                     <p>Review: I'm Miku! The burgers were so yummy!</p>
+                <hr class = "divider">
+                <div id="rating">
+                    <label for="ratingInput">Enter your rating: </label>
+                    <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
+                </div>
+                <textarea id="userReview" rows="4" cols="50" placeholder="Got a review yourself? Type here!"></textarea>
+                <button class="btn" id="submitReview">Submit Review</button>
                 </div>
             </div>
 
@@ -54,7 +61,7 @@
                     <div id="kalsada" class="sprite"></div>
                     <h3>Kalsada Burger</h3>
                     <p>Rating: 4.0/5</p>
-                    <button class="btn">Toggle Review</button>
+                    <button class="btn toggle-button">Toggle Review</button>
                 </div>
                 <div class="review-info">
                     <p>Name: Charles Leclerc</p>
@@ -64,6 +71,13 @@
                     <p>Name: Ishi Ople</p>
                     <p>Date: Dec 1, 2022</p>
                     <p>Review: First time palang, nainlove na ako. 10/10 would recommend.</p>
+                <hr class = "divider">
+                    <div id="rating">
+                        <label for="ratingInput">Enter your rating: </label>
+                        <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
+                    </div>
+                    <textarea id="userReview" rows="4" cols="50" placeholder="Got a review yourself? Type here!"></textarea>
+                    <button class="btn" id="submitReview">Submit Review</button>
                 </div>
             </div>
 
@@ -72,7 +86,7 @@
                     <div id="bk" class="sprite"></div>
                     <h3>Burger King</h3>
                     <p>Rating: 4.8/5</p>
-                    <button class="btn">Toggle Review</button>
+                    <button class="btn toggle-button">Toggle Review</button>
                 </div>
                 <div class="review-info">
                     <p>Name: Skibidi Toilet</p>
@@ -82,6 +96,13 @@
                     <p>Name: Pia Wurtzbach</p>
                     <p>Date: July 16, 2023</p>
                     <p>Review: When I crave really badly, they always have my back!</p>
+                <hr class = "divider">
+                    <div id="rating">
+                        <label for="ratingInput">Enter your rating: </label>
+                        <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
+                    </div>
+                    <textarea id="userReview" rows="4" cols="50" placeholder="Got a review yourself? Type here!"></textarea>
+                    <button class="btn" id="submitReview">Submit Review</button>
                 </div>
             </div>
 
@@ -90,7 +111,7 @@
                     <div id="zarks" class="sprite"></div>
                     <h3>Zark's</h3>
                     <p>Rating: 4.8/5</p>
-                    <button class="btn">Toggle Review</button>
+                    <button class="btn toggle-button">Toggle Review</button>
                 </div>
                 <div class="review-info">
                     <p>Name: Zark's Fan</p>
@@ -100,6 +121,13 @@
                     <p>Name: Stephen Curry</p>
                     <p>Date: September 15, 2022</p>
                     <p>Review: It's good, but it's fast food. I need to keep my diet up!</p>
+                <hr class = "divider">
+                    <div id="rating">
+                        <label for="ratingInput">Enter your rating: </label>
+                        <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
+                    </div>
+                    <textarea id="userReview" rows="4" cols="50" placeholder="Got a review yourself? Type here!"></textarea>
+                    <button class="btn" id="submitReview">Submit Review</button>
                 </div>
             </div>
 
@@ -108,7 +136,7 @@
                     <div id="tinuhog"></div>
                     <h3>Tinuhog ni Benny</h3>
                     <p>Rating: 4.8/5</p>
-                    <button class="btn">Toggle Review</button>
+                    <button class="btn toggle-button">Toggle Review</button>
                 </div>
                 <div class="review-info">
                     <p>Name: Pikumeen</p>
@@ -118,6 +146,13 @@
                     <p>Name: Delilah from New York City</p>
                     <p>Date: March 21, 2022</p>
                     <p>Review: The name is a little unique, and the food was ULTRA unique!</p>
+                <hr class = "divider">
+                    <div id="rating">
+                        <label for="ratingInput">Enter your rating: </label>
+                        <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
+                    </div>
+                    <textarea id="userReview" rows="4" cols="50" placeholder="Got a review yourself? Type here!"></textarea>
+                    <button class="btn" id="submitReview">Submit Review</button>
                 </div>
             </div>
 
@@ -132,11 +167,11 @@
     </footer>
 
     <script>
-        const toggleButtons = document.querySelectorAll('.btn');
-        toggleButtons.forEach((button, index) => {
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+        toggleButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const reviewInfo = document.querySelectorAll('.review-info');
-                reviewInfo[index].style.display = reviewInfo[index].style.display === 'block' ? 'none' : 'block';
+                const reviewInfo = button.parentElement.nextElementSibling;
+                reviewInfo.style.display = reviewInfo.style.display === 'block' ? 'none' : 'block';
             });
         });
     </script>

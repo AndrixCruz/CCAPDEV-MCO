@@ -321,3 +321,31 @@ footer {
     font-family: nunito sans;
     font-weight: bold;
 }
+
+#userReview {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ebad29;
+    border-radius: 10px;
+    font-family: 'Noto Sans', 'Nunito Sans', sans-serif;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+#rating {
+    display: center;
+    align-items: center;
+}
+
+#rating label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#ratingInput {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Noto Sans', 'Nunito Sans', sans-serif;
+    font-size: 12px;
+}
