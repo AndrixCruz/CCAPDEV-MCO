@@ -281,3 +281,39 @@ footer {
 .currentPage{
     font-weight: bold;
 }
+
+.profileCard{
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: #333;
+    display: flex;
+}
+
+#header{
+    font-weight: bold;
+}
+
+#desc{
+    font-family: nunito sans;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 15px;
+    align-items: center;
+    display: flex;
+}
+
+
+#profilePic{
+    background-image: url('MJProfilepic.png');
+    background-size: 200px 101px;
+    background-position: 153px 201px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+}
