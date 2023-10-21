@@ -349,3 +349,7 @@ footer {
     font-family: 'Noto Sans', 'Nunito Sans', sans-serif;
     font-size: 12px;
 }
+
+.divider{
+    color:black;
+}
