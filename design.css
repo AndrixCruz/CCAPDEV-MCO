@@ -291,19 +291,22 @@ footer {
     text-decoration: none;
     color: #333;
     display: flex;
+    align-items: center;
 }
 
 #header{
-    font-weight: bold;
+    font-weight: 700;
 }
 
 #desc{
     font-family: nunito sans;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: regular;
     padding-bottom: 15px;
-    align-items: center;
+    align-items: self-start;
     display: flex;
+    flex-direction: column;
+    text-align: left;
 }
 
 
@@ -353,3 +356,4 @@ footer {
 .divider{
     color:black;
 }
+
