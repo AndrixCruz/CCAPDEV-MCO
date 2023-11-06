@@ -202,7 +202,14 @@
             review.innerHTML = "Rating: " + rat + "<br>" + "Review: " + rev;
             document.getElementById("review").appendChild(review);
         }
-        console.log(rat1);
+
+        const toggleButtons = document.querySelectorAll('.btn');
+        toggleButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                const reviewInfo = document.querySelectorAll('.review-info');
+                reviewInfo[index].style.display = reviewInfo[index].style.display === 'block' ? 'none' : 'block';
+            });
+        });
 
     </script>
 </body>
