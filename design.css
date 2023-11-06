@@ -106,6 +106,28 @@ header {
     background-color: #ff5722;
 }
 
+.btn-edit-profile {
+    background-color: rgba(112, 255, 119, 0.7); /* Adjust the alpha (fourth) value to control transparency */
+    color: #000000;
+    border: none;
+    padding: 5px; 
+    border-radius: 50%; 
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    margin-left: 10px; 
+}
+
+.btn-edit-profile:hover {
+    background-color: rgba(0, 160, 0, 0.9); /* Adjust the alpha (fourth) value for the hover effect */
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .featured-restaurants {
     margin-top: 40px;
     align-items: middle;
@@ -355,5 +377,9 @@ footer {
 
 .divider{
     color:black;
+}
+
+.hidden{
+    display: none;
 }
 
