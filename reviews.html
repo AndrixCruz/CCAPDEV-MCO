@@ -41,10 +41,10 @@
                     <button class="btn toggle-button">Toggle Review</button>
                 </div>
                 <div class="review-info">
-                    <p><span style="font-weight: bold">Rating:</span> 5.0</p>
+                    <p id="rating"><span style="font-weight: bold">Rating:</span> 5.0</p>
                     <p><span style="font-weight: bold">Name:</span> Michael Jackson</p></a>
                     <p><span style="font-weight: bold">Date:</span> February 10, 2022</p>
-                    <p><span style="font-weight: bold">Review:</span> The food made me go hee-hee!</p>
+                    <p id="review"><span style="font-weight: bold">Review:</span> The food made me go hee-hee!</p>
                 <hr class = "divider">
                     <p><span style="font-weight: bold">Company's Response</span></p>
                     <p><span style="font-weight: bold">Name:</span> James Read</p>
@@ -179,13 +179,31 @@
     </footer>
 
     <script>
-        const toggleButtons = document.querySelectorAll('.toggle-button');
-        toggleButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const reviewInfo = button.parentElement.nextElementSibling;
-                reviewInfo.style.display = reviewInfo.style.display === 'block' ? 'none' : 'block';
-            });
-        });
+        var rat1 = document.getElementById("ratingInput");
+        var rev1 = document.getElementById("userReview");
+        var Restau1 = [];
+        var Restau2 = [];
+        var Restau3 = [];
+        var Restau4 = [];
+        var Restau5 = [];
+
+        for(var i=0; i<Restau1.length; i++){
+            var review = document.createElement("p");
+            review.innerHTML = "Rating: " + Restau1[i].rating + "<br>" + "Review: " + Restau1[i].review;
+            document.getElementById("review").appendChild(review);
+        }
+        //I think the code above yung code para makapag parse ka through the array
+  
+
+        function submitReview(){
+            var rat = rat1.value;
+            var rev = rev1.value;
+            var review = document.createElement("p");
+            review.innerHTML = "Rating: " + rat + "<br>" + "Review: " + rev;
+            document.getElementById("review").appendChild(review);
+        }
+        console.log(rat1);
+
     </script>
 </body>
 </html>
