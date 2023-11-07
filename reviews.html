@@ -40,23 +40,25 @@
                     <p>Rating: 4.5/5</p>
                     <button class="btn toggle-button">Toggle Review</button>
                 </div>
-                <div class="review-info">
+                <div class="review-info" id="reviewbeast">
                     <p id="rating"><span style="font-weight: bold">Rating:</span> 5.0</p>
                     <p><span style="font-weight: bold">Name:</span> Michael Jackson</p></a>
                     <p><span style="font-weight: bold">Date:</span> February 10, 2022</p>
                     <p id="review"><span style="font-weight: bold">Review:</span> The food made me go hee-hee!</p>
+                    <button class="btn edit-review">Edit Review</button>
                 <hr class = "divider">
                     <p><span style="font-weight: bold">Company's Response</span></p>
                     <p><span style="font-weight: bold">Name:</span> James Read</p>
                     <p><span style="font-weight: bold">Rank:</span> Branch Manager</p>
                     <p><span style="font-weight: bold">Response:</span> I'm Glad that you are satisfied with our Service</p>
                 <hr class = "divider">
-                <div id="rating">
+                <button class="btn write-review-button" data-target="reviewbeast">Write Review</button>
+                <div class="rating-input hidden">
                     <label for="ratingInput">Enter your rating: </label>
                     <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
+                    <textarea id="userReview" rows="4" cols="50" placeholder="Got a review yourself? Type here!"></textarea>
+                    <button id = "submitReview" class = "btn">Submit Review</button>
                 </div>
-                <textarea id="userReview" rows="4" cols="50" placeholder="Got a review yourself? Type here!"></textarea>
-                <button class="btn" id="submitReview">Submit Review</button>
                 </div>
             </div>
 
@@ -67,7 +69,7 @@
                     <p>Rating: 4.0/5</p>
                     <button class="btn toggle-button">Toggle Review</button>
                 </div>
-                <div class="review-info">
+                <div class="review-info" id="reviewkalsada">
                     <p><span style="font-weight: bold">Rating:</span> 4.0</p>
                     <p><span style="font-weight: bold">Name:</span> Charles Leclerc</p>
                     <p><span style="font-weight: bold">Date:</span> May 30, 2021</p>
@@ -82,8 +84,14 @@
                         <label for="ratingInput">Enter your rating: </label>
                         <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
                     </div>
+                <hr class = "divider">
+                <button class="btn write-review-button" data-target="reviewkalsada">Write Review</button>
+                <div class="rating-input hidden">
+                    <label for="ratingInput">Enter your rating: </label>
+                    <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
                     <textarea id="userReview" rows="4" cols="50" placeholder="Got a review yourself? Type here!"></textarea>
-                    <button class="btn" id="submitReview">Submit Review</button>
+                    <button id = "submitReview" class = "btn">Submit Review</button>
+                </div>
                 </div>
             </div>
 
@@ -94,7 +102,7 @@
                     <p>Rating: 4.8/5</p>
                     <button class="btn toggle-button">Toggle Review</button>
                 </div>
-                <div class="review-info">
+                <div class="review-info" id="reviewburger">
                     <p><span style="font-weight: bold">Rating:</span> 4.6</p>
                     <p><span style="font-weight: bold">Name:</span> Skibidi Toilet</p>
                     <p><span style="font-weight: bold">Date:</span> October 14, 2022</p>
@@ -105,12 +113,13 @@
                     <p><span style="font-weight: bold">Rank:</span> Head of servers</p>
                     <p><span style="font-weight: bold">Response:</span> We're happy to hear that from you. Hope to see you again!</p>
                 <hr class = "divider">
-                    <div id="rating">
-                        <label for="ratingInput">Enter your rating: </label>
-                        <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
-                    </div>
+                <button class="btn write-review-button" data-target="reviewburger">Write Review</button>
+                <div class="rating-input hidden">
+                    <label for="ratingInput">Enter your rating: </label>
+                    <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
                     <textarea id="userReview" rows="4" cols="50" placeholder="Got a review yourself? Type here!"></textarea>
-                    <button class="btn" id="submitReview">Submit Review</button>
+                    <button id = "submitReview" class = "btn">Submit Review</button>
+                </div>
                 </div>
             </div>
 
@@ -121,7 +130,7 @@
                     <p>Rating: 4.8/5</p>
                     <button class="btn toggle-button">Toggle Review</button>
                 </div>
-                <div class="review-info">
+                <div class="review-info" id="reviewzarks">
                     <p><span style="font-weight: bold">Rating:</span> 5.0</p>
                     <p><span style="font-weight: bold">Name:</span> Zark's Fan</p>
                     <p><span style="font-weight: bold">Date:</span> June 7, 2023</p>
@@ -132,12 +141,13 @@
                     <p><span style="font-weight: bold">Rank:</span> Point Guard</p>
                     <p><span style="font-weight: bold">Response:</span> Happy to have your support!</p>
                 <hr class = "divider">
-                    <div id="rating">
-                        <label for="ratingInput">Enter your rating: </label>
-                        <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
-                    </div>
+                <button class="btn write-review-button" data-target="reviewzarks">Write Review</button>
+                <div class="rating-input hidden">
+                    <label for="ratingInput">Enter your rating: </label>
+                    <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
                     <textarea id="userReview" rows="4" cols="50" placeholder="Got a review yourself? Type here!"></textarea>
-                    <button class="btn" id="submitReview">Submit Review</button>
+                    <button id = "submitReview" class = "btn">Submit Review</button>
+                </div>
                 </div>
             </div>
 
@@ -148,7 +158,7 @@
                     <p>Rating: 4.8/5</p>
                     <button class="btn toggle-button">Toggle Review</button>
                 </div>
-                <div class="review-info">
+                <div class="review-info" id="reviewtinuhog">
                     <p><span style="font-weight: bold">Rating:</span> 4.8</p>
                     <p><span style="font-weight: bold">Name:</span> Pikumeen</p>
                     <p><span style="font-weight: bold">Date:</span> November 4, 2021</p>
@@ -159,12 +169,13 @@
                     <p><span style="font-weight: bold">Rank:</span> Head Cook</p>
                     <p><span style="font-weight: bold">Response:</span> Hope to cook for you again!</p>
                 <hr class = "divider">
-                    <div id="rating">
-                        <label for="ratingInput">Enter your rating: </label>
-                        <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
-                    </div>
+                <button class="btn write-review-button" data-target="reviewtinuhog">Write Review</button>
+                <div class="rating-input hidden">
+                    <label for="ratingInput">Enter your rating: </label>
+                    <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
                     <textarea id="userReview" rows="4" cols="50" placeholder="Got a review yourself? Type here!"></textarea>
-                    <button class="btn" id="submitReview">Submit Review</button>
+                    <button id = "submitReview" class = "btn">Submit Review</button>
+                </div>
                 </div>
             </div>
 
@@ -203,14 +214,29 @@
             document.getElementById("review").appendChild(review);
         }
 
-        const toggleButtons = document.querySelectorAll('.btn');
-        toggleButtons.forEach((button, index) => {
-            button.addEventListener('click', () => {
-                const reviewInfo = document.querySelectorAll('.review-info');
-                reviewInfo[index].style.display = reviewInfo[index].style.display === 'block' ? 'none' : 'block';
-            });
-        });
+        // event listener para once napindot write review lalabas yung chuchu
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+toggleButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        const reviewInfo = button.parentElement.nextElementSibling;
+        reviewInfo.style.display = reviewInfo.style.display === 'block' ? 'none' : 'block';
+    });
+});
 
+const writeReviewButtons = document.querySelectorAll('.write-review-button');
+writeReviewButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        const reviewInfo = button.parentElement;
+        const ratingInput = reviewInfo.querySelector('.rating-input');
+        const userReviewTextarea = reviewInfo.querySelector('.user-review-textarea');
+        const submitReviewButton = reviewInfo.querySelector('.submit-review-button');
+
+        // Remove the 'hidden' class to make the elements visible.
+        ratingInput.classList.remove('hidden');
+        userReviewTextarea.classList.remove('hidden');
+        submitReviewButton.classList.remove('hidden');
+    });
+});
     </script>
 </body>
 </html>
