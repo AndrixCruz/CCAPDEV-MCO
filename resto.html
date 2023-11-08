@@ -39,7 +39,7 @@
                 <div id="beast" class="sprite"></div>
                 <h3>Beast Burger</h3>
                 <p>Rating: 4.5/5</p>
-                <p>Location: Nasa Puso mo, right ventricle</p>
+                <p>Location: Uptown BGC, Taguig City</p>
                 <a href="MrBeastBurger.html">Read Reviews</a>
             </div>
             <div class="restaurant-card">
@@ -80,3 +80,46 @@
     </footer>
 </body>
 </html>
+
+<script>
+    const restaurant = [
+    {
+        name: "Beast Burger",
+        location: "Uptown BGC, Taguig City",
+        rating: "4.5/5",
+    },
+    {
+        name: "Kalsada Burger",
+        location: "Manila, Sta. Ana",
+        rating: "4.0/5",
+    },
+    {
+        name: "Burger King",
+        location: "Pasay, Taft Avenue",
+        rating: "4.8/5",
+    },
+    {
+        name: "Zark's",
+        location: "Manila, P. Ocampo",
+        rating: "4.8/5",
+    },
+    {
+        name: "Tinuhog ni Benny",
+        location: "Manila, Taft Avenue",
+        rating: "4.8/5",
+    }
+    ]
+    function displayRestaurantInfo(restaurant) {
+            const restaurantInfo = document.getElementById("restaurantInfo");
+            const restaurantHTML = `
+                <div>
+                    <h2>${restaurant.name}</h2>
+                    <p><strong>Address:</strong> ${restaurant.location}</p>
+                    <p><strong>Rating:</strong> ${restaurant.rating}</p>
+                </div>
+            `;
+            restaurantInfo.innerHTML += restaurantHTML;
+        }
+        // Loop through the array and display information for each restaurant
+        restaurants.forEach(displayRestaurantInfo);
+</script>
