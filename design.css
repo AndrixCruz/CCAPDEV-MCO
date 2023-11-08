@@ -383,3 +383,13 @@ footer {
     display: none;
 }
 
+#padding{
+    padding-left: 40px;
+}
+
+#Review{
+    padding-left: 20px;
+    display: flex;
+    flex-direction : column;
+    text-align: left;
+}
