@@ -393,3 +393,53 @@ footer {
     flex-direction : column;
     text-align: left;
 }
+
+.like-dislike-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.like-button,
+.dislike-button {
+    padding: 5px 10px;
+    background-color: #ff4500;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.like-button:hover,
+.dislike-button:hover {
+    background-color: #ff5722;
+}
+
+.user-review-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.rating-input,
+.comment-input {
+    flex: 1;
+}
+
+.rating-input input,
+.comment-input textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Noto Sans', 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+#ratingInput {
+    margin-bottom: 0;
+}

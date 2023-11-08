@@ -58,19 +58,29 @@
         </div>
     </section>
 
-    <section class ="establishments">
-        <div class="container"> 
+    <section class="establishments">
+        <div class="container">
             <div id="title"><h2>Comments</h2></div>
             <div class="profileCard">
                 <div id="Review">
-                        <p><span style="font-weight: bold">@TheKingOfPop</span></p></a>
-                        <p id="rating"><span style="font-weight: bold">Rating:</span> 5.0</p>
-                        <p><span style="font-weight: bold">Date:</span> February 10, 2022</p>
-                        <p id="review"><span style="font-weight: bold">Review:</span> The food made me go hee-hee!</p>
-                        <hr class = "divider">
-                        <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="0.0" />
-                        <textarea id="userReview" rows="4" cols="50" placeholder="Got a review yourself? Type here!"></textarea>
-                        <button id = "submitReview" class = "btn">Submit Review</button>
+                    <p><span style="font-weight: bold">@TheKingOfPop</span></p>
+                    <p id="rating"><span style="font-weight: bold">Rating:</span> 5.0</p>
+                    <p><span style="font-weight: bold">Date:</span> February 10, 2022</p>
+                    <p id="review"><span style="font-weight: bold">Review:</span> The food made me go hee-hee!</p>
+                    <div class="like-dislike-buttons">
+                        <button class="like-button">Like</button>
+                        <button class="dislike-button">Dislike</button>
+                    </div>
+                    <hr class="divider">
+                    <div class="user-review-section">
+                        <div class="rating-input">
+                            <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="Your Rating" />
+                        </div>
+                        <div class="comment-input">
+                            <textarea id="userReview" rows="4" placeholder="Got a review yourself? Type here!"></textarea>
+                        </div>
+                        <button id="submitReview" class="btn">Submit Review</button>
+                    </div>
                 </div>
             </div>
         </div>
