@@ -28,101 +28,114 @@
             </div>
         </nav>
     </header>
-    
 
     <section class="establishments">
         <div class="container">
             <div id="title"><h2>List Profiles</h2></div>
 
+            <!-- Beast Burger -->
             <div class="establishment-card">
                 <div class="review-toggle">
-                    <div id="beast" class="sprite"></div>
-                    <h3>Beast Burger</h3>
-                    <br>
-                    <button class="btn">More</button>
-                </div>
-                <div class="review-info">
-                <hr class = "divider">
-                    <pre>MrBeast Burger is an American virtual restaurant founded and developed by internet personality Jimmy Donaldson (MrBeast), 
-in partnership with Virtual Dining Concepts, LLC. There are virtual locations in North America and Europe, 
-with plans to expand to more countries and increase the number of locations significantly.</pre>
+                    <button class="btn" onclick="redirectToCompanyProfile(beastUser)">More</button>
                 </div>
             </div>
 
+            <!-- Kalsada Burger -->
             <div class="establishment-card">
                 <div class="review-toggle">
-                    <div id="kalsada" class="sprite"></div>
-                    <h3>Kalsada Burger</h3>
-                    <br>
-                    <button class="btn">More</button>
-                </div>
-                <div class="review-info">
-                <hr class = "divider">
-                <pre>Kalsada Burger was Established By Ramon Miguel Alberto back in 2015.</pre>
+                    <button class="btn" onclick="redirectToCompanyProfile(kalsadaUser)">More</button>
                 </div>
             </div>
 
+            <!-- Burger King -->
             <div class="establishment-card">
                 <div class="review-toggle">
-                    <div id="bk" class="sprite"></div>
-                    <h3>Burger King</h3>
-                    <br>
-                    <button class="btn">More</button>
-                </div>
-                <div class="review-info">
-                <hr class = "divider">
-                <pre>Burger King Corporation, restaurant company specializing in flame-broiled
-fast-food hamburgers. It is the second largest hamburger chain in the United
-States, after McDonald's, and one of the most successful brands in fast-food history.
-                </pre>
+                    <button class="btn" onclick="redirectToCompanyProfile(bkUser)">More</button>
                 </div>
             </div>
 
+            <!-- Zark's -->
             <div class="establishment-card">
                 <div class="review-toggle">
-                    <div id="zarks" class="sprite"></div>
-                    <h3>Zark's</h3>
-                    <br>
-                    <button class="btn">More</button>
-                </div>
-                <div class="review-info">
-                <hr class = "divider">
-                <pre>The man behind the successful burger chain Zark's Burgers, was once a seafarer
-who took a chance in leaving the ship in order to sail his way to success.</pre>
+                    <button class="btn" onclick="redirectToCompanyProfile(zarksUser)">More</button>
                 </div>
             </div>
 
+            <!-- Tinuhog ni Benny -->
             <div class="establishment-card">
                 <div class="review-toggle">
-                    <div id="tinuhog"></div>
-                    <h3>Tinuhog ni Benny</h3>
-                    <br>
-                    <button class="btn">More</button>
-                </div>
-                <div class="review-info">
-                <hr class = "divider">
-                <pre>There is not much info about Tinuhog ni Benny.</pre>
+                    <button class="btn" onclick="redirectToCompanyProfile(tinuhogUser)">More</button>
                 </div>
             </div>
 
+            <!-- ... (other establishments) ... -->
 
+            <script>
+                // Define user objects for all establishments
+                const beastUser = {
+                    name: 'Beast Burger',
+                    image: 'sprites.png',
+                    background: 'Virtual Dining Concepts, LLC',
+                    description: 'MrBeast Burger is an American virtual restaurant...',
+                    comments: 'Great burger!',
+                };
+
+                const kalsadaUser = {
+                    name: 'Kalsada Burger',
+                    image: 'kalsada.jpg',
+                    background: 'Ramon Miguel Alberto',
+                    description: 'Kalsada Burger was Established By Ramon Miguel Alberto back in 2015.',
+                    comments: 'Delicious burgers!',
+                };
+
+                const bkUser = {
+                    name: 'Burger King',
+                    image: 'bk.jpg',
+                    background: 'Burger King Corporation',
+                    description: 'Burger King Corporation, restaurant company specializing in flame-broiled fast-food hamburgers...',
+                    comments: 'Love the Whopper!',
+                };
+
+                const zarksUser = {
+                    name: 'Zark\'s',
+                    image: 'zarks.jpg',
+                    background: 'Zark\'s Burgers',
+                    description: 'The man behind the successful burger chain Zark\'s Burgers...',
+                    comments: 'Best burgers in town!',
+                };
+
+                const tinuhogUser = {
+                    name: 'Tinuhog ni Benny',
+                    image: 'tinuhog.jpg',
+                    background: 'Unknown',
+                    description: 'There is not much info about Tinuhog ni Benny.',
+                    comments: 'Great value for money!',
+                };
+
+                // Function to redirect to CompanyProfile.html
+                function redirectToCompanyProfile(user) {
+                    const urlParams = new URLSearchParams();
+                    urlParams.set('name', user.name);
+                    urlParams.set('image', user.image);
+                    urlParams.set('background', user.background);
+                    urlParams.set('description', user.description);
+                    urlParams.set('comments', user.comments);
+                    window.location.href = `CompanyProfile.html?${urlParams.toString()}`;
+                }
+
+                // Event listeners for "More" buttons
+                const toggleButtons = document.querySelectorAll('.btn');
+                toggleButtons.forEach((button, index) => {
+                    button.addEventListener('click', () => {
+                        const reviewInfo = document.querySelectorAll('.review-info');
+                        reviewInfo.forEach((info) => {
+                            info.style.display = 'none';
+                        });
+                        reviewInfo[index].style.display = 'block';
+                    });
+                });
+            </script>
         </div>
     </section>
-    
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 Restaurant Reviews</p>
-        </div>
-    </footer>
-
-    <script>
-        const toggleButtons = document.querySelectorAll('.btn');
-        toggleButtons.forEach((button, index) => {
-            button.addEventListener('click', () => {
-                const reviewInfo = document.querySelectorAll('.review-info');
-                reviewInfo[index].style.display = reviewInfo[index].style.display === 'block' ? 'none' : 'block';
-            });
-        });
-    </script>
 </body>
 </html>
