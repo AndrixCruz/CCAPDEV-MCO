@@ -1,0 +1,127 @@
+<!-- FILEPATH: /c:/Users/Admin/Desktop/CCAPDEV-MCO-main/MrBeastBurger.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Reviews - Reviews</title>
+    <link rel="stylesheet" href="design.css">
+    <style>
+        .review-info {
+            display: none;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="nav-links">
+                    <div id="gitna">
+                        <div id="logo">Restaurant Reviews</div>
+                        <div id="resto" class="currentPage"><a href="resto.html">•Home•</a></div>
+                        <div id="login"><a href="login.html">•Logout•</a></div>
+                        <div id="profilePic"><a href="user.html"></a></div>
+                        <div id="info"><a href="user.html">Michael Jackson</a></div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="company-info">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="" alt="Company Logo" id="companyLogo" class="sprite">
+                </div>
+                <div class="col-md-6">
+                    <h1 id="companyName"></h1>
+                    <ul>
+                        <li><p>Rating: <span id="companyRating"></span>/5</p></li>
+                        <li><a href="" id="companyLocationLink"><p id="companyLocation"></p></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="establishments">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="profileCard">
+                        <div id="title"><h2>Comments</h2></div>
+                        <div id="Review">
+                            <!-- Existing comments will be added here -->
+                        </div>
+                        <hr class="divider">
+                        <div class="user-review-section">
+                            <div class="rating-input">
+                                <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="Your Rating" />
+                            </div>
+                            <div class="comment-input">
+                                <textarea id="userReview" rows="4" placeholder="Got a review yourself? Type here!"></textarea>
+                            </div>
+                            <button id="submitReview" class="btn">Submit Review</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Function to populate CompanyProfile.html with user data
+        function populateCompanyProfile() {
+            // Retrieve user data from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name');
+            const image = urlParams.get('image');
+            const background = urlParams.get('background');
+            const description = urlParams.get('description');
+            const comments = urlParams.get('comments');
+
+            // Update HTML elements with user data
+            document.getElementById('companyLogo').src = image;
+            document.getElementById('companyName').textContent = name;
+            document.getElementById('companyRating').textContent = calculateAverageRating(comments);
+            document.getElementById('companyLocationLink').href = `https://www.google.com/maps/place/${background}`;
+            document.getElementById('companyLocation').textContent = background;
+
+            // Populate existing comments section
+            const commentsSection = document.getElementById('Review');
+            commentsSection.innerHTML = '';
+            const userComments = JSON.parse(comments);
+            userComments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.innerHTML = `
+                    <p><span style="font-weight: bold">@${comment.name}</span></p>
+                    <p id="commentRating"><span style="font-weight: bold">Rating:</span> ${comment.rating}</p>
+                    <p><span style="font-weight: bold">Date:</span> ${comment.date}</p>
+                    <p id="commentReview"><span style="font-weight: bold">Review:</span> ${comment.review}</p>
+                    <div class="like-dislike-buttons">
+                        <button class="like-button">Like</button>
+                        <button class="dislike-button">Dislike</button>
+                    </div>
+                    <hr class="divider">
+                `;
+                commentsSection.appendChild(commentElement);
+            });
+        }
+
+        // Helper function to calculate the average rating
+        function calculateAverageRating(comments) {
+            if (comments.length === 0) {
+                return 0;
+            }
+            const totalRating = comments.reduce((acc, comment) => acc + parseFloat(comment.rating), 0);
+            return (totalRating / comments.length).toFixed(1);
+        }
+
+        // Call the function to populate CompanyProfile.html
+        populateCompanyProfile();
+    </script>
+</body>
+</html>
