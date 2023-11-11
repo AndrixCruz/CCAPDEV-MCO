@@ -249,8 +249,6 @@ footer {
 }
 
 .sprite{
-    background-image: url('sprites.png');
-    background-size: 545px 310px;
     width: 133px;
     height: 151px;
     align-items: center;
