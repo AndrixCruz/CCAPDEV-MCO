@@ -108,6 +108,8 @@
                     image: 'MrBeast.png',
                     background: 'Virtual Dining Concepts, LLC',
                     description: 'MrBeast Burger is an American virtual restaurant...',
+                    rating: '4.5',
+                    location: 'Sa nanay mo',
                     comments: 'Great burger!',
                 };
 
@@ -116,6 +118,8 @@
                     image: 'Kalsada.png',
                     background: 'Ramon Miguel Alberto',
                     description: 'Kalsada Burger was Established By Ramon Miguel Alberto back in 2015.',
+                    rating: '3.5',
+                    location: 'Sa nanay mo',
                     comments: 'Delicious burgers!',
                 };
 
@@ -124,6 +128,8 @@
                     image: 'BurgerKing.png',
                     background: 'Burger King Corporation',
                     description: 'Burger King Corporation, restaurant company specializing in flame-broiled fast-food hamburgers...',
+                    rating: '4',
+                    location: 'Sa nanay mo',
                     comments: 'Love the Whopper!',
                 };
 
@@ -132,6 +138,8 @@
                     image: 'Zarks.png',
                     background: 'Zark\'s Burgers',
                     description: 'The man behind the successful burger chain Zark\'s Burgers...',
+                    rating: '5',
+                    location: 'Sa nanay mo',
                     comments: 'Best burgers in town!',
                 };
 
@@ -140,6 +148,8 @@
                     image: 'Wendys.png',
                     background: 'Unknown',
                     description: 'There is not much info about Wendys.',
+                    rating: '4.5',
+                    location: 'Sa nanay mo',
                     comments: 'Great value for money!',
                 };
 
@@ -150,6 +160,8 @@
                     urlParams.set('image', user.image);
                     urlParams.set('background', user.background);
                     urlParams.set('description', user.description);
+                    urlParams.set('rating', user.rating);
+                    urlParams.set('location', user.location);
                     urlParams.set('comments', user.comments);
                     window.location.href = `CompanyProfile.html?${urlParams.toString()}`;
                 }

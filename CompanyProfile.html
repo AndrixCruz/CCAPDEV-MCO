@@ -1,4 +1,3 @@
-<!-- FILEPATH: /c:/Users/Admin/Desktop/CCAPDEV-MCO-main/MrBeastBurger.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,100 +28,68 @@
             </div>
         </nav>
     </header>
+    
 
-    <section class="company-info">
+    <section class="establishments">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
+        
+        <span style = "padding-left: 50px;">
+        <div id="title"><h2 id="companyName"> Kalsada Burger Profile</h2></div>
+        </span>
+            <div class="profileCard">
+                <div id="kalsada" class="sprite" style="padding-right: 20px">
                     <img src="" alt="Company Logo" id="companyLogo" class="sprite">
                 </div>
-                <div class="col-md-6">
-                    <h1 id="companyName"></h1>
-                    <p id="companyDescription"></p>
-                    <ul>
-                        <li><p>Rating: <span id="companyRating"></span>/5</p></li>
-                        <li><a href="" id="companyLocationLink"><p id="companyLocation"></p></a></li>
-                    </ul>
+                <div id="padding" class="review-toggle">
+                    <div id="header">
+                        <h3><span style="color:black" id="companyNameLink"> Kalsada Burger</span></a></h3>
+                        <button id="editProfileButton" class="btn-edit-profile">Edit</button>
+                    </div>
+                    <div id="desc">
+                        <p style="padding-bottom: 10px;" id="companyDescription">Kalsada Burger was Established By Mr. Ramon Miguel Alberto back in 2015. It currently has 9 branches and 2 upcoming branch in Mandaluyong and Antipolo</p>
+                        <ul style="align-items:flex-start;">
+                            <li><p>Rating: <span id="companyRating"></span>/5</p></li>
+                            <li><p>Location: <span id="companyLocation"></p></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <section class="establishments">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="profileCard">
-                        <div id="title"><h2>Comments</h2></div>
-                        <div id="Review">
-                            <!-- Existing comments will be added here -->
-                        </div>
-                        <hr class="divider">
-                        <div class="user-review-section">
-                            <div class="rating-input">
-                                <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="Your Rating" />
-                            </div>
-                            <div class="comment-input">
-                                <textarea id="userReview" rows="4" placeholder="Got a review yourself? Type here!"></textarea>
-                            </div>
-                            <button id="submitReview" class="btn">Submit Review</button>
-                        </div>
-                    </div>
+        <div class="container"> 
+            <div id="title"><h2>Comments</h2></div>
+            <div class="profileCard">
+                <div id="Review">
+                
                 </div>
             </div>
         </div>
     </section>
 
     <script>
-        // Function to populate CompanyProfile.html with user data
-        function populateCompanyProfile() {
-            // Retrieve user data from URL parameters
+        // Function to populate the second HTML with company data
+        function populateCompanyData() {
+            // Retrieve company data from URL parameters
             const urlParams = new URLSearchParams(window.location.search);
             const name = urlParams.get('name');
             const image = urlParams.get('image');
-            const background = urlParams.get('background');
             const description = urlParams.get('description');
-            const comments = urlParams.get('comments');
+            const rating = urlParams.get('rating');
+            const location = urlParams.get('location');
 
-            // Update HTML elements with user data
-            document.getElementById('companyLogo').src = image;
+            // Update HTML elements with company data
             document.getElementById('companyName').textContent = name;
-            document.getElementById('companyRating').textContent = calculateAverageRating(comments);
-            document.getElementById('companyLocationLink').href = `https://www.google.com/maps/place/${background}`;
-            document.getElementById('companyLocation').textContent = background;
-
-            // Populate existing comments section
-            const commentsSection = document.getElementById('Review');
-            commentsSection.innerHTML = '';
-            const userComments = JSON.parse(comments);
-            userComments.forEach(comment => {
-                const commentElement = document.createElement('div');
-                commentElement.innerHTML = `
-                    <p><span style="font-weight: bold">@${comment.name}</span></p>
-                    <p id="commentRating"><span style="font-weight: bold">Rating:</span> ${comment.rating}</p>
-                    <p><span style="font-weight: bold">Date:</span> ${comment.date}</p>
-                    <p id="commentReview"><span style="font-weight: bold">Review:</span> ${comment.review}</p>
-                    <div class="like-dislike-buttons">
-                        <button class="like-button">Like</button>
-                        <button class="dislike-button">Dislike</button>
-                    </div>
-                    <hr class="divider">
-                `;
-                commentsSection.appendChild(commentElement);
-            });
+            document.getElementById('companyNameLink').textContent = name;
+            document.getElementById('companyLogo').src = image;
+            document.getElementById('companyDescription').textContent = description;
+            document.getElementById('companyRating').textContent = rating;
+            document.getElementById('companyLocation').textContent = location;
         }
 
-        // Helper function to calculate the average rating
-        function calculateAverageRating(comments) {
-            if (comments.length === 0) {
-                return 0;
-            }
-            const totalRating = comments.reduce((acc, comment) => acc + parseFloat(comment.rating), 0);
-            return (totalRating / comments.length).toFixed(1);
-        }
-
-        // Call the function to populate CompanyProfile.html
-        populateCompanyProfile();
+        // Call the function to populate the second HTML with company data
+        populateCompanyData();
     </script>
 </body>
 </html>
