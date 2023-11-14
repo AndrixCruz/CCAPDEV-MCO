@@ -22,25 +22,27 @@
     <section class="hero">
         <div class="container">
             <h2>Login</h2>
-            <form action="#" method="post">
+            <form onsubmit="validateLogin(); return false;">
                 <div id="regformat">
-                <label for="email">Email:</label>
-                <div class="form-group">
-                    <input type="email" id="email" name="email" required>
-                </div>
+                    <label for="email">Email:</label>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required>
+                    </div>
                 </div>
                 <div id="regformat2">
-                <label for="password">Password:</label>
-                <div class="form-group">
-                    <input type="password" id="password" name="password" required>
-                </div>
+                    <label for="password">Password:</label>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" required>
+                    </div>
                 </div>
                 <div id="regformat" class="button">
-                <button class="btn" onclick="window.location.href='resto.html';">Login</button>
-                <button class="btn" onclick="window.location.href='register.html';">Register</button>
-                </div>
+                    <button class="btn">Login</button>
                 </div>
             </form>
+            
+            <div id="register-link">
+                <p>Don't have an account? <a href="register.html">Register here</a></p>
+            </div>
         </div>
     </section>
 
@@ -49,5 +51,22 @@
             <p>&copy; 2023 Restaurant Reviews</p>
         </div>
     </footer>
+
+    <script>
+        function validateLogin() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Fetch user information stored during registration (this is a simplified example)
+            const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+            if (storedUserInfo && storedUserInfo.email === email && storedUserInfo.password === password) {
+                alert("Login successful!");
+                window.location.href = 'resto.html';
+            } else {
+                alert("Invalid email or password. Please try again.");
+            }
+        }
+    </script>
 </body>
 </html>

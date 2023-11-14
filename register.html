@@ -7,51 +7,37 @@
     <link rel="stylesheet" href="design.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="container">
-                <div class="nav-links">
-                    <div id="gitna">
-                        <div id="logo">Restaurant Reviews</div>
-                        <div id="resto"><a href="resto.html">•Home•</a></div>
-                        <div id="login"><a href="login.html">•Logout•</a></div>
-                        <div id="profilePic"><a href="user.html"></a></div>
-                        <div id="info"><a href="user.html">Michael Jackson</a></div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
-
     <section class="hero">
         <div class="container">
             <h2>Registration</h2>
-            <form action="#" method="post">
+            <form onsubmit="storeInfo(); return false;">
                 <div id="regformat">
-                <label for="username">Username:</label>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div id="regformat1">
-                <label for="email">Email:</label>
-                <div class="form-group">
-                    <input type="email" id="email" name="email" required>
-                </div>
+                    <label for="username">Username:</label>
+                    <div class="form-group">
+                        <input type="text" id="username" name="username" required>
+                    </div>
                 </div>
                 <div id="regformat1">
-                <label for="password">Password:</label>
-                <div class="form-group">
-                    <input type="password" id="password" name="password" required>
+                    <label for="email">Email:</label>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required>
+                    </div>
                 </div>
+                <div id="regformat1">
+                    <label for="password">Password:</label>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" required>
+                    </div>
                 </div>
                 <div id="regformat1"> 
-                <label for="confirm-password">Confirm Password:</label>
-                <div class="form-group">
-                <input type="password" id="confirm-password" name="confirm-password" required>
+                    <label for="confirm-password">Confirm Password:</label>
+                    <div class="form-group">
+                        <input type="password" id="confirm-password" name="confirm-password" required>
+                    </div>
                 </div>
+                <div id="regformat1"> 
+                    <button class="btn">Register</button>
                 </div>
-                <button class="btn" onclick="window.location.href='login.html';">Register</button>
             </form>
         </div>
     </section>
@@ -61,5 +47,32 @@
             <p>&copy; 2023 Restaurant Reviews</p>
         </div>
     </footer>
+
+    <script>
+        function storeInfo() {
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match. Please try again.");
+                return;
+            }
+
+            const userInfo = {
+                username: username,
+                email: email,
+                password: password,
+            };
+
+            // Store user information in localStorage (this is a simplified example)
+            localStorage.setItem("userInfo", JSON.stringify(userInfo));
+
+            // Redirect to the login page
+            window.location.href = 'login.html';
+        }
+    </script>
 </body>
 </html>

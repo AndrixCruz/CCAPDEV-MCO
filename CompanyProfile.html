@@ -10,6 +10,15 @@
             display: none;
             padding: 10px;
         }
+
+        .comment {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .comment p {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -29,13 +38,11 @@
         </nav>
     </header>
     
-
     <section class="establishments">
         <div class="container">
-        
-        <span style = "padding-left: 50px;">
-        <div id="title"><h2 id="companyName"> Kalsada Burger Profile</h2></div>
-        </span>
+            <span style="padding-left: 50px;">
+                <div id="title"><h2 id="companyName"> Kalsada Burger Profile</h2></div>
+            </span>
             <div class="profileCard">
                 <div id="kalsada" class="sprite" style="padding-right: 20px">
                     <img src="" alt="Company Logo" id="companyLogo" class="sprite">
@@ -43,13 +50,13 @@
                 <div id="padding" class="review-toggle">
                     <div id="header">
                         <h3><span style="color:black" id="companyNameLink"> Kalsada Burger</span></a></h3>
-                        <button id="editProfileButton" class="btn-edit-profile">Edit</button>
+                        <button id="editProfileButton" class="btn-edit-profile" onclick="editDescription()">Edit</button>
                     </div>
                     <div id="desc">
-                        <p style="padding-bottom: 10px;" id="companyDescription">Kalsada Burger was Established By Mr. Ramon Miguel Alberto back in 2015. It currently has 9 branches and 2 upcoming branch in Mandaluyong and Antipolo</p>
+                        <p style="padding-bottom: 10px;" id="companyDescription">Kalsada Burger was Established By Mr. Ramon Miguel Alberto back in 2015. It currently has 9 branches and 2 upcoming branches in Mandaluyong and Antipolo.</p>
                         <ul style="align-items:flex-start;">
                             <li><p>Rating: <span id="companyRating"></span>/5</p></li>
-                            <li><p>Location: <span id="companyLocation"></p></li>
+                            <li><p>Location: <span id="companyLocation"></span></p></li>
                         </ul>
                     </div>
                 </div>
@@ -58,17 +65,37 @@
     </section>
 
     <section class="establishments">
-        <div class="container"> 
-            <div id="title"><h2>Comments</h2></div>
+        <div class="container">
+            <div id="title">
+                <h2>Comments</h2>
+            </div>
             <div class="profileCard">
                 <div id="Review">
-                
+                    <div class="user-review-section">
+                        <div id="commentSection">
+                            <div id="commentForm">
+                                <h3>Add a Comment</h3>
+                                <form id="commentSubmitForm">
+                                    <label for="ratingInput">Rating:</label>
+                                    <input type="number" id="ratingInput" name="rating" step="0.1" min="1.0" max="5.0" placeholder="Your Rating" />
+                                    <textarea id="newComment" rows="4" placeholder="Write your comment here"></textarea>
+                                    <button id="addCommentButton">Add Comment</button>
+                                </form>
+                            </div>
+                            <div id="comments">
+                                <!-- Comments will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <script>
+        // Function to simulate user data
+       
+
         // Function to populate the second HTML with company data
         function populateCompanyData() {
             // Retrieve company data from URL parameters
@@ -88,8 +115,114 @@
             document.getElementById('companyLocation').textContent = location;
         }
 
-        // Call the function to populate the second HTML with company data
-        populateCompanyData();
+        // Function to add a new comment
+        function addComment() {
+            const ratingInput = document.getElementById("ratingInput");
+            const newCommentInput = document.getElementById("newComment");
+
+            const rating = ratingInput.value;
+            const commentText = newCommentInput.value;
+
+            if (rating.trim() !== "" && commentText.trim() !== "") {
+                
+
+                // Create a new comment element
+                const commentElement = document.createElement("div");
+                commentElement.classList.add("comment");
+                commentElement.innerHTML = `
+                    <div id="profilePic"><a href="user.html"></a></div>
+                    <div id="info"><a href="user.html">Michael Jackson</a></div>
+                    <p><strong>Rating:</strong> ${rating}</p>
+                    <p>${commentText}</p>
+                    <button class="editCommentButton">Edit</button>
+                    <button class="deleteCommentButton">Delete</button>
+                `;
+
+                // Add the comment to the comments section
+                commentsSection.appendChild(commentElement);
+
+                // Clear the input fields
+                ratingInput.value = "";
+                newCommentInput.value = "";
+
+                // Add event listeners for editing and deleting comments
+                const editCommentButton = commentElement.querySelector(".editCommentButton");
+                const deleteCommentButton = commentElement.querySelector(".deleteCommentButton");
+
+                editCommentButton.addEventListener("click", function() {
+                    const existingComment = commentElement.querySelector("p:last-of-type").textContent;
+                    const updatedComment = prompt("Edit your comment:", existingComment);
+
+                    if (updatedComment !== null) {
+                        commentElement.querySelector("p:last-of-type").textContent = updatedComment;
+                    }
+                });
+
+                deleteCommentButton.addEventListener("click", function() {
+                    commentsSection.removeChild(commentElement);
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+    const commentSubmitForm = document.getElementById("commentSubmitForm");
+    const commentsSection = document.getElementById("comments");
+
+    commentSubmitForm.addEventListener("submit", function(event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
+        const ratingInput = document.getElementById("ratingInput");
+        const newCommentInput = document.getElementById("newComment");
+
+        const rating = ratingInput.value;
+        const commentText = newCommentInput.value;
+
+        if (rating.trim() !== "" && commentText.trim() !== "") {
+            
+
+            // Create a new comment element
+            const commentElement = document.createElement("div");
+            commentElement.classList.add("comment");
+            commentElement.innerHTML = `
+                <div id="profilePic"><a href="user.html"></a></div>
+                <div id="info"><a href="user.html">Michael Jackson</a></div>
+                <p><strong>Rating:</strong> ${rating}</p>
+                <p>${commentText}</p>
+                <button class="editCommentButton">Edit</button>
+                <button class="deleteCommentButton">Delete</button>
+            `;
+
+            // Add the comment to the comments section
+            commentsSection.appendChild(commentElement);
+
+            // Clear the input fields
+            ratingInput.value = "";
+            newCommentInput.value = "";
+
+            // Add event listeners for editing and deleting comments
+            const editCommentButton = commentElement.querySelector(".editCommentButton");
+            const deleteCommentButton = commentElement.querySelector(".deleteCommentButton");
+
+            editCommentButton.addEventListener("click", function() {
+                const existingComment = commentElement.querySelector("p:last-of-type").textContent;
+                const updatedComment = prompt("Edit your comment:", existingComment);
+
+                if (updatedComment !== null) {
+                    commentElement.querySelector("p:last-of-type").textContent = updatedComment;
+                }
+            });
+
+            deleteCommentButton.addEventListener("click", function() {
+                commentsSection.removeChild(commentElement);
+            });
+        }
+    });
+
+
+            // Call the function to populate the second HTML with company data
+            populateCompanyData();
+        });
     </script>
 </body>
 </html>
