@@ -30,10 +30,10 @@
                 <div class="nav-links">
                     <div id="gitna">
                         <div id="logo">Restaurant Reviews</div>
-                        <div id="resto" ><a href="resto.html">•Home•</a></div>
+                        <div id="resto" class="currentPage"><a href="resto.html">•Home•</a></div>
                         <div id="login"><a href="login.html">•Logout•</a></div>
                         <div id="profilePic"><a href="user.html"></a></div>
-                        <div id="info"><a href="user.html">Michael Jackson</a></div>
+                        <div id="info"><a href="user.html" id="usernameLink"></a></div>
                     </div>
                 </div>
             </div>
@@ -102,6 +102,15 @@
             <!-- ... (other establishments) ... -->
 
             <script>
+                document.addEventListener("DOMContentLoaded", function () {
+            // Retrieve user information from localStorage
+            const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+            // Populate user's name in the header
+            if (storedUserInfo) {
+                document.getElementById("usernameLink").textContent = storedUserInfo.username || "";
+            }
+        });
                 // Define user objects for all establishments
                 const beastUser = {
                     name: 'Beast Burger',

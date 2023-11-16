@@ -22,7 +22,7 @@
                         <div id="resto" class="currentPage"><a href="resto.html">•Home•</a></div>
                         <div id="login"><a href="login.html">•Logout•</a></div>
                         <div id="profilePic"><a href="user.html"></a></div>
-                        <div id="info"><a href="user.html">Michael Jackson</a></div>
+                        <div id="info"><a href="user.html" id="usernameLink"></a></div>
                     </div>
                 </div>
             </div>
@@ -32,29 +32,98 @@
 
     <section class="establishments">
         <div class="container">
-
-        <div id="title"><h2> User Profile</h2></div>
+            <div id="title"><h2> User Profile</h2></div>
             
             <div class="profileCard">
                 <div id="profilePic" style="background-size: 292px 158px; background-position: 219px 316px; width: 150px; height: 150px;"></div>
                 <div class="review-toggle">
-                        <div id="header">
-                        <h3> <a href = "https://www.britannica.com/biography/Michael-Jackson"><span style="color:black"> Michael Joseph Jackson</span></a></h3>
+                    <div id="header">
+                        <h3 id="username"></h3>
                         <button id="editProfileButton" class="btn-edit-profile">Edit</button>
-                        </div>
-                        <div id="desc">
-                        <p style="padding-bottom: 10px;">Hi everyone! I'm Michael and I like to sing and dance. I usually spend my time composing my own songs. Hee hee!</p>
-                        <ul style="align-items:flex-start;">
-                            <li>Studied at Montclair College Prep School</li>
-                            <li>Born on August 29, 1958 </li>
-                            <li>From Gary, Indiana</li> 
-                            <li>Number of rated restaurants: 1</li>
-                        </ul>
-                        </div>
+                    </div>
+                    <div id="desc">
+                        <p style="padding-bottom: 10px;" id="userDescription"></p>
+                        <ul style="align-items:flex-start;" id="userDetailsList"></ul>
                     </div>
                 </div>
             </div>
+
+            <!-- Edit Profile Form -->
+            <form id="editProfileForm" style="display: none;">
+                <label for="newDescription">Description:</label>
+                <textarea id="newDescription" name="newDescription"></textarea>
+                <label for="newDetails">Other Info:</label>
+                <textarea id="newDetails" name="newDetails"></textarea>
+                <button type="button" id="saveProfileButton" class="btn-edit-profile">Save</button>
+                <button type="button" id="cancelEditButton" class="btn-edit-profile">Cancel</button>
+            </form>
         </div>
     </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Retrieve user information from localStorage
+            const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+            // Populate user profile with stored data
+            if (storedUserInfo) {
+                document.getElementById("username").textContent = storedUserInfo.username || "";
+                document.getElementById("usernameLink").textContent = storedUserInfo.username || "";
+                document.getElementById("userDescription").textContent = storedUserInfo.description || "";
+                const userDetailsList = document.getElementById("userDetailsList");
+                
+                if (storedUserInfo.details && Array.isArray(storedUserInfo.details)) {
+                    storedUserInfo.details.forEach(detail => {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = detail;
+                        userDetailsList.appendChild(listItem);
+                    });
+                }
+            }
+
+            // Edit Profile functionality
+            const editProfileForm = document.getElementById("editProfileForm");
+            const editProfileButton = document.getElementById("editProfileButton");
+            const saveProfileButton = document.getElementById("saveProfileButton");
+            const cancelEditButton = document.getElementById("cancelEditButton");
+
+            editProfileButton.addEventListener("click", function () {
+                editProfileForm.style.display = "block";
+                document.getElementById("desc").style.display = "none";
+            });
+
+            cancelEditButton.addEventListener("click", function () {
+                editProfileForm.style.display = "none";
+                document.getElementById("desc").style.display = "block";
+            });
+
+            saveProfileButton.addEventListener("click", function () {
+                const newDescription = document.getElementById("newDescription").value;
+                const newDetails = document.getElementById("newDetails").value;
+
+                // Update user information
+                storedUserInfo.description = newDescription;
+                storedUserInfo.details = newDetails.split('\n').map(detail => detail.trim());
+
+                // Save updated user information to localStorage
+                localStorage.setItem("userInfo", JSON.stringify(storedUserInfo));
+
+                // Update displayed information
+                document.getElementById("userDescription").textContent = newDescription;
+                const userDetailsList = document.getElementById("userDetailsList");
+                userDetailsList.innerHTML = "";
+
+                storedUserInfo.details.forEach(detail => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = detail;
+                    userDetailsList.appendChild(listItem);
+                });
+
+                // Hide the edit form and show the user details
+                editProfileForm.style.display = "none";
+                document.getElementById("desc").style.display = "block";
+            });
+        });
+    </script>
 </body>
 </html>
