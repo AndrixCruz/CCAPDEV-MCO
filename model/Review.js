@@ -4,7 +4,7 @@ const reviewSchema = new Schema({
     username: String,
     time: Date.now(),
     restaurant: String,
-    rating: int,
+    rating: number,
     comment: String,
     email: String,
 });

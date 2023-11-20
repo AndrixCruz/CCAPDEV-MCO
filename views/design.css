@@ -332,9 +332,9 @@ footer {
 
 
 #profilePic{
-    background-image: url(MJProfilepic.png);
-    background-size: 106px 47px;
-    background-position: 77px 189px;
+    background-image: url(defaultprofpic.jpeg);
+    background-size: 84px 62px;
+    background-position: 68px 184px;
     width: 50px;
     height: 50px;
     border-radius: 50%;

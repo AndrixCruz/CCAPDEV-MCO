@@ -124,6 +124,7 @@
                     description: 'Beast Burger is an American virtual restaurant founded and developed by internet personality Jimmy Donaldson, in partnership with Virtual Dining Concepts, LLC. There are virtual locations in North America and Europe, with plans to expand to more countries and increase the number of locations significantly.',
                     rating: '4.5',
                     location: 'JustKitchen PH, Malate, Manila',
+                    hyperlink: 'https://maps.app.goo.gl/X9Z7nDEFPgWoptWj9',
                     comments: 'Great burger!',
                 };
 
@@ -134,6 +135,7 @@
                     description: 'Kalsada Burger was Established By Ramon Miguel Alberto back in 2015.',
                     rating: '3.5',
                     location: 'Sta. Ana, Manila',
+                    hyperlink: 'https://maps.app.goo.gl/k1Rhr4C9kn8MBoELA',
                     comments: 'Delicious burgers!',
                 };
 
@@ -144,6 +146,7 @@
                     description: 'Burger King Corporation, restaurant company specializing in flame-broiled fast-food hamburgers...',
                     rating: '4',
                     location: 'Taft Avenue, Manila',
+                    hyperlink: 'https://maps.app.goo.gl/njb6dcnMVf3DhNjFA',
                     comments: 'Love the Whopper!',
                 };
 
@@ -154,6 +157,7 @@
                     description: 'Zark\’s Burgers is a popular homegrown joint that serves American comfort food, especially huge, greasy burgers  and no other joint can beat them in freshness, size and taste.',
                     rating: '5',
                     location: 'Taft Avenue, Manila',
+                    hyperlink: 'https://maps.app.goo.gl/ufEZUWhyxtPoxN5L6',
                     comments: 'Best burgers in town!',
                 };
 
@@ -164,6 +168,7 @@
                     description: 'Wendy\'s is an American international fast food restaurant chain founded by Dave Thomas on November 15, 1969, in Columbus, Ohio.',
                     rating: '4.5',
                     location: 'Robinson\'s Place Manila',
+                    hyperlink: 'https://maps.app.goo.gl/uonSaYJRmrjgn8DW8',
                     comments: 'Great value for money!',
                 };
 
@@ -176,6 +181,7 @@
                     urlParams.set('description', user.description);
                     urlParams.set('rating', user.rating);
                     urlParams.set('location', user.location);
+                    urlParams.set('hyperlink', user.hyperlink);
                     urlParams.set('comments', user.comments);
                     window.location.href = `CompanyProfile.html?${urlParams.toString()}`;
                 }

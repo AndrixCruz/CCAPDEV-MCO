@@ -1,10 +1,10 @@
 import mongoose, { model } from 'mongoose';
 
-const reviewSchema = new Schema({
+const userProfileSchema = new Schema({
     username: String,
     bio: String,
 });
 
-const Review = model('Review', reviewSchema);
+const UserProfile = model('UserProfile', userProfileSchema);
 
 export default Review;
