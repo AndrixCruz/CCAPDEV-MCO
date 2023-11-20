@@ -1,28 +1,27 @@
 
+const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 
 const app = express();
 const PORT = 3000;
 const routes = express.Router();
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'views'))); 
 
 // MongoDB Connection URL
-const mongoURI = 'mongodb://localhost:27017/MCO'; 
+const mongoURI = 'mongodb://localhost:27017/'; 
 
     // Start the server
     app.listen(3000, () => {
       console.log(`YAY`);
-      MongoClient.connect(mongoURI, {})
-        .then(client => () => {
-        console.log('Connected to MongoDB');
-        const db = client.db('MCO'); 
-    }).catch(err => console.error('Error connecting to MongoDB', err));
-
+      mongoose.connect(mongoURI, {dbName: 'MCO'});
+      
     // Serve the HTML files
     routes.route('/CCAPDEV-MCO/views/register', (req, res) => {
       res.sendFile(path.join(__dirname, 'views', 'register.html'));
