@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regist - Restaurant Reviews</title>
     <link rel="stylesheet" href="design.css">
+    <script src="register.js"></script>
 </head>
 <body>
     <section class="hero">
         <div class="container">
             <h2>Registration</h2>
-            <form action = "/register" method = "post" onsubmit="storeInfo(); return false;">
+            <form id="registerForm">
                 <div id="regformat">
                     <label for="username">Username:</label>
                     <div class="form-group">
@@ -36,7 +37,7 @@
                     </div>
                 </div>
                 <div id="regformat1"> 
-                    <button class="btn">Register</button>
+                    <button id="submitBtn" class="btn">Register</button>
                 </div>
             </form>
         </div>
@@ -47,7 +48,6 @@
             <p>&copy; 2023 Restaurant Reviews</p>
         </div>
     </footer>
-
     <script>
         function storeInfo() {
             const username = document.getElementById("username").value;
@@ -74,5 +74,6 @@
             window.location.href = 'login.html';
         }
     </script>
+
 </body>
 </html>

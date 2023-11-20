@@ -1,4 +1,4 @@
-import mongoose, { model } from 'mongoose';
+const { Schema, SchemaTypes, model } = require('mongoose');
 
 const profileSchema = new Schema({
     Name: String,
@@ -9,4 +9,4 @@ const profileSchema = new Schema({
 
 const Profile = model('Profile', profileSchema);
 
-export default Profile;
+module.exports = Profile;

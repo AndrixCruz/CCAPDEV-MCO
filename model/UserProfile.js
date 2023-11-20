@@ -1,4 +1,5 @@
-import mongoose, { model } from 'mongoose';
+const mongoose = require('mongoose');
+const { Schema, model} = mongoose;
 
 const userProfileSchema = new Schema({
     username: String,
@@ -7,4 +8,4 @@ const userProfileSchema = new Schema({
 
 const UserProfile = model('UserProfile', userProfileSchema);
 
-export default Review;
+export default UserProfile;

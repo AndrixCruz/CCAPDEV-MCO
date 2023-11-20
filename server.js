@@ -3,57 +3,59 @@ const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-//const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
+const Profile = require('./model/Profile');
 
 const app = express();
 const PORT = 3000;
 const routes = express.Router();
 
+
 app.use(cors());
+routes.use(express.json());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'views'))); 
 
 // MongoDB Connection URL
 const mongoURI = 'mongodb://localhost:27017/'; 
-mongoose.connect(mongoURI, {dbName: 'MCO'});
+
+const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
     // Start the server
-    app.listen(3000, () => {
+    app.listen(3000, async () => {
       console.log(`YAY`);
-    // Serve the HTML files
-    routes.route('/CCAPDEV-MCO/views/register', (req, res) => {
-      res.sendFile(path.join(__dirname, 'views', 'register.html'));
-    });
-
-    routes.route('/CCAPDEV-MCO/views/login', (req, res) => {
-      res.sendFile(path.join(__dirname, 'views', 'login.html'));
-    });
-
-    routes.route('/CCAPDEV-MCO/views/profile', (req, res) => {
-      res.sendFile(path.join(__dirname, 'views', 'profile.html'));
-    });
-
-    routes.route('/CCAPDEV-MCO/views/companyProfile', (req, res) => {
-      res.sendFile(path.join(__dirname, 'views', 'companyProfile.html'));
-    });
-
-    routes.route('/CCAPDEV-MCO/views/user', (req, res) => {
-        res.sendFile(path.join(__dirname, 'views', 'user.html'));
-    });
-  
-    routes.post('/register', async (req, res) => {
-      const { username, email, password, confirmPassword } = req.body;
-      console.log(username, email, password, confirmPassword);
-    
-      // Check if passwords match
-      if (password !== confirmPassword) {
-        return res.status(400).send("Passwords do not match. Please try again.");
+      try {
+        await client.connect();
+        console.log('Connected to MongoDB');
+      } catch (e) {
+        console.log(e);
       }
-    
-      const userInfo = {
-        username: username,
-        email: email,
-        password: password,
-      }});
+      
+    // Serve the HTML files
+    routes.get('/register', (req, res) => {
+      res.render('register.html');
+    });
+
+    routes.get('/login', (req, res) => {
+      res.render('login.html');
+    });
+
+    routes.post('/register', async (req, res) => {
+      const username = req.body.username;
+      const email = req.body.email;
+      const password = req.body.password;
+
+      const db = client.db('MCO');
+      const profiles = db.collection('profiles');
+      
+      try {
+        await profiles.insertOne({ username, email, password });
+        res.json({ status: 'ok' });
+      } catch (e) {
+        console.log(e);
+        res.json({ status: 'error' });
+      }
+    });
 });
