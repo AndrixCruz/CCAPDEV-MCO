@@ -6,43 +6,42 @@ const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
 const PORT = 3000;
+const routes = express.Router();
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public'))); // Assuming HTML files are in the 'public' directory
+app.use(express.static(path.join(__dirname, 'views'))); 
 
 // MongoDB Connection URL
-const mongoURI = 'mongodb://localhost:27017/MCO'; // Replace 'yourDatabaseName' with your database name
-
-// Connect to MongoDB
-MongoClient.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(client => () => {
-    console.log('Connected to MongoDB');
-    const db = client.db('MCO'); // Replace 'yourDatabaseName' with your database name
-
-    // Serve the HTML files
-    app.get('/register', (req, res) => {
-      res.sendFile(path.join(__dirname, 'public', 'register.html'));
-    });
-
-    app.get('/login', (req, res) => {
-      res.sendFile(path.join(__dirname, 'public', 'login.html'));
-    });
-
-    app.get('/profile', (req, res) => {
-      res.sendFile(path.join(__dirname, 'public', 'profile.html'));
-    });
-
-    app.get('/companyProfile', (req, res) => {
-      res.sendFile(path.join(__dirname, 'public', 'companyProfile.html'));
-    });
-
-    app.get('/user', (req, res) => {
-        res.sendFile(path.join(__dirname, 'public', 'user.html'));
-
-    // Additional routes and logic for handling database operations
+const mongoURI = 'mongodb://localhost:27017/MCO'; 
 
     // Start the server
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
+    app.listen(3000, () => {
+      console.log(`YAY`);
+      MongoClient.connect(mongoURI, {})
+        .then(client => () => {
+        console.log('Connected to MongoDB');
+        const db = client.db('MCO'); 
+    }).catch(err => console.error('Error connecting to MongoDB', err));
+
+    // Serve the HTML files
+    routes.route('/CCAPDEV-MCO/views/register', (req, res) => {
+      res.sendFile(path.join(__dirname, 'views', 'register.html'));
     });
-  }).catch(err => console.error('Error connecting to MongoDB', err));});
+
+    routes.route('/CCAPDEV/views/login', (req, res) => {
+      res.sendFile(path.join(__dirname, 'views', 'login.html'));
+    });
+
+    routes.route('/CCAPDEV/views/profile', (req, res) => {
+      res.sendFile(path.join(__dirname, 'views', 'profile.html'));
+    });
+
+    routes.route('/CCAPDEV/views/companyProfile', (req, res) => {
+      res.sendFile(path.join(__dirname, 'views', 'companyProfile.html'));
+    });
+
+    routes.route('/CCAPDEV/views/user', (req, res) => {
+        res.sendFile(path.join(__dirname, 'views', 'user.html'));
+    });
+  
+});
