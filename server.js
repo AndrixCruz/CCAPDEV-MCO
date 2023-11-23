@@ -17,6 +17,7 @@ routes.use(express.json());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'views'))); 
+app.use(routes);
 
 // MongoDB Connection URL
 const mongoURI = 'mongodb://localhost:27017/'; 
@@ -34,15 +35,8 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
       }
       
     // Serve the HTML files
-    routes.get('/register', (req, res) => {
-      res.render('register.html');
-    });
 
-    routes.get('/login', (req, res) => {
-      res.render('login.html');
-    });
-
-    routes.post('/register', async (req, res) => {
+    routes.post('/submit', async (req, res) => {
       const username = req.body.username;
       const email = req.body.email;
       const password = req.body.password;
@@ -58,4 +52,13 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
         res.json({ status: 'error' });
       }
     });
+    routes.get('/register', (req, res) => {
+      res.render('register.html');
+    });
+
+    routes.get('/login', (req, res) => {
+      res.render('login.html');
+    });
+
+    
 });

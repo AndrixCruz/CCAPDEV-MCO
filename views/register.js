@@ -14,19 +14,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log(username, email, password);
 
-        const response = await fetch('/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, email, password })
-        });
-
-        const data = await response.json();
-
-        if (data.status === 'ok') {
-            alert('Registered successfully');
-            window.location.href = '/login.html';
-        } else {
-            alert('Something went wrong');
+        try{
+            const response = await fetch ('/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, email, password })
+            });
+    
+            const data = await response.json();
+    
+            if (data.status === 'ok') {
+                alert('Registered successfully');
+                window.location.href = '/login.html';
+            } else {
+                alert('Something went wrong');
+            }
+        } catch (err) {
+            console.log(err);
         }
     });
 });
