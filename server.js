@@ -52,8 +52,26 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
         res.json({ status: 'error' });
       }
     });
-    routes.get('/register', (req, res) => {
-      res.render('register.html');
+
+    routes.post('/addreview', (req, res) => {
+      const username = req.body.username;
+      const time = req.body.time;
+      const restaurant = req.body.restaurant;
+      const rating = req.body.rating;
+      const comment = req.body.comment;
+      const email = req.body.email;
+
+      const db = client.db('MCO');
+      const profiles = db.collection('reviews');
+
+      try {
+        await reviews.insertOne({ username, time, restaurant, rating, comment, email });
+        res.json({ status: 'ok' });
+      } catch (e) {
+        console.log(e);
+        res.json({ status: 'error' });
+      }
+
     });
 
     routes.get('/login', (req, res) => {
