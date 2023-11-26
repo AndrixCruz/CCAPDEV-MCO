@@ -39,6 +39,7 @@
             </div>
         </nav>
     </header>
+
     <section class="hero">
         <div class="container">
             <h2>Welcome to Restaurant Reviews</h2>
@@ -107,14 +108,13 @@
             <!-- ... (other establishments) ... -->
 
             <script>
-                document.addEventListener("DOMContentLoaded", function () {
-            // Retrieve user information from localStorage
-            const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+ document.addEventListener("DOMContentLoaded", async function () {
+            // Retrieve the username from the URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const loggedInUsername = urlParams.get('username') || "Guest";
 
-            // Populate user's name in the header
-            if (storedUserInfo) {
-                document.getElementById("usernameLink").textContent = storedUserInfo.username || "";
-            }
+            // Set the username in the header
+            document.getElementById("usernameLink").textContent = loggedInUsername;
         });
                 // Define user objects for all establishments
                 const beastUser = {

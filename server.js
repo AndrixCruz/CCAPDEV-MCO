@@ -55,26 +55,28 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
     });
 
     routes.get('/login', async (req, res) => {
-      const email = req.query.email;
-      const password = req.query.password;
+    const email = req.query.email;
+    const password = req.query.password;
+
+    const db = client.db('MCO');
+    const profiles = db.collection('profiles');
+
+    try {
+        const user = await profiles.findOne({ email, password });
+
+        if (user) {
+            const username = user.username || "Guest"; // Default to "Guest" if username is not found
+            res.json({ status: 'ok', username });
+        } else {
+            res.json({ status: 'error' });
+        }
+    } catch (e) {
+        console.error('Error:', e);
+        res.json({ success: false });
+    }
+}); 
+
     
-      const db = client.db('MCO');
-      const profiles = db.collection('profiles');
-    
-      try {
-          const user = await profiles.findOne({ email, password });
-          console.log(user);
-    
-          if (user) {
-              res.json({ status: 'ok' });
-          } else {
-              res.json({ status: 'error' });
-          }
-      } catch (e) {
-          console.error('Error:', e);
-          res.json({ success: false });
-      }
-    });
 
    /* routes.post('/addreview', (req, res) => {
       const username = req.body.username;
