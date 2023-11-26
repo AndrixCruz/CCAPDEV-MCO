@@ -4,27 +4,24 @@ document.addEventListener('DOMContentLoaded', function() {
     submitBtn.addEventListener('click', async function(e) {
         e.preventDefault();
 
-        const username = document.getElementById('username').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        if (username === '' || email === '' || password === '') {
+        if ( email === '' || password === '') {
             return;
         }
-        console.log(username, email, password);
-
+        
         try{
-            const response = await fetch ('/register', {
+            const response = await fetch(`/login?email=${email}&password=${password}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, email, password })
             });
     
             const data = await response.json();
     
             if (data.status === 'ok') {
-                alert('Registered successfully');
-                window.location.href = '/login.html';
+                alert('logged in successfully');
+                window.location.href = '/profile.html';
             } else {
                 alert('Something went wrong');
             }
