@@ -11,11 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (username === '' || email === '' || password === '') {
             return;
         }
-
         console.log(username, email, password);
 
         try{
-            const response = await fetch ('/submit', {
+            const response = await fetch ('/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, email, password })

@@ -36,7 +36,8 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
       
     // Serve the HTML files
 
-    routes.post('/submit', async (req, res) => {
+    
+    routes.post('/register', async (req, res) => {
       const username = req.body.username;
       const email = req.body.email;
       const password = req.body.password;
@@ -53,7 +54,7 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
       }
     });
 
-    routes.post('/addreview', (req, res) => {
+   /* routes.post('/addreview', (req, res) => {
       const username = req.body.username;
       const time = req.body.time;
       const restaurant = req.body.restaurant;
@@ -73,9 +74,13 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
       }
 
     });
+*/
+    routes.post('/edituser', (req, res) => {
+      // insert code here
+    });
 
-    routes.get('/login', (req, res) => {
-      res.render('login.html');
+    routes.post('/editreview', (req, res) => {
+      // insert code here
     });
 
     
