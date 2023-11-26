@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Reviews - Reviews</title>
     <link rel="stylesheet" href="design.css">
+    <script src="addcomment.js"></script>  
     <style>
         .review-info {
             display: none;
@@ -77,9 +78,9 @@
                                 <h3>Add a Comment</h3>
                                 <form id="commentSubmitForm">
                                     <label for="ratingInput">Rating:</label>
-                                    <input type="number" id="ratingInput" name="rating" step="1" min="1.0" max="5.0" placeholder="Your Rating" />
-                                    <textarea id="newComment" rows="4" placeholder="Write your comment here"></textarea>
-                                    <button id="addCommentButton">Add Comment</button>
+                                    <input type="number" id="rating" name="rating" step="1" min="1.0" max="5.0" placeholder="Your Rating" >
+                                    <textarea id="comment" rows="4" placeholder="Write your comment here"></textarea>
+                                    <button id="addCommentButton" class ="btn">Add Comment</button>
                                 </form>
                             </div>
                             <div id="comments">
@@ -91,194 +92,5 @@
             </div>
         </div>
     </section>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Retrieve user information from localStorage
-            const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
-
-            // Populate user's name in the header
-            if (storedUserInfo) {
-                document.getElementById("usernameLink").textContent = storedUserInfo.username || "";
-            }
-        });
-        // Function to simulate user data
-
-// Function to populate the second HTML with company data
-function populateCompanyData() {
-    // Retrieve company data from URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('name');
-    const image = urlParams.get('image');
-    const description = urlParams.get('description');
-    const rating = urlParams.get('rating');
-    const location = urlParams.get('location');
-    const hyperlink = urlParams.get('hyperlink');
-
-    // Update HTML elements with company data
-    document.getElementById('companyName').textContent = name;
-    document.getElementById('companyNameLink').textContent = name;
-    document.getElementById('companyLogo').src = image;
-    document.getElementById('companyDescription').textContent = description;
-    document.getElementById('companyRating').textContent = rating;
-    document.getElementById('companyLocation').textContent = location;
-
-    const companyLocationLink = document.getElementById('companyLocation');
-
-    // Set the href attribute of the anchor element with the companyHyperlink data
-    companyLocationLink.href = hyperlink;
-}
-
-// Function to add a new comment
-function addComment() {
-    const ratingInput = document.getElementById("ratingInput");
-    // Add comment logic here
-}
-
-// Function to edit the company description
-function editDescription() {
-    const companyDescription = document.getElementById("companyDescription");
-    const editProfileButton = document.getElementById("editProfileButton");
-
-    // Enable editing of the company description
-    companyDescription.contentEditable = true;
-    companyDescription.focus();
-
-    // Change the button text to "Save"
-    editProfileButton.textContent = "Save";
-    editProfileButton.onclick = saveDescription;
-}
-
-// Function to save the edited company description
-function saveDescription() {
-    const companyDescription = document.getElementById("companyDescription");
-    const editProfileButton = document.getElementById("editProfileButton");
-
-    // Disable editing of the company description
-    companyDescription.contentEditable = false;
-
-    // Change the button text back to "Edit"
-    editProfileButton.textContent = "Edit";
-    editProfileButton.onclick = editDescription;
-
-    // Save the updated description to the server
-    const updatedDescription = companyDescription.textContent;
-    // Send the updated description to the server using AJAX or fetch API
-    // ...
-}
-       
-
-        // Function to populate the second HTML with company data
-        
-
-        // Function to add a new comment
-        function addComment() {
-            const ratingInput = document.getElementById("ratingInput");
-            const newCommentInput = document.getElementById("newComment");
-
-            const rating = ratingInput.value;
-            const commentText = newCommentInput.value;
-
-            if (rating.trim() !== "" && commentText.trim() !== "") {
-                
-
-                // Create a new comment element
-                const commentElement = document.createElement("div");
-                commentElement.classList.add("comment");
-                commentElement.innerHTML = `
-                    <div id="profilePic"><a href="user.html"></a></div>
-                    <div id="info"><a href="user.html" id="usernameLink"></a></div>
-                    <p><strong>Rating:</strong> ${rating}</p>
-                    <p>${commentText}</p>
-                    <button class="editCommentButton">Edit</button>
-                    <button class="deleteCommentButton">Delete</button>
-                `;
-
-                // Add the comment to the comments section
-                commentsSection.appendChild(commentElement);
-
-                // Clear the input fields
-                ratingInput.value = "";
-                newCommentInput.value = "";
-
-                // Add event listeners for editing and deleting comments
-                const editCommentButton = commentElement.querySelector(".editCommentButton");
-                const deleteCommentButton = commentElement.querySelector(".deleteCommentButton");
-
-                editCommentButton.addEventListener("click", function() {
-                    const existingComment = commentElement.querySelector("p:last-of-type").textContent;
-                    const updatedComment = prompt("Edit your comment:", existingComment);
-
-                    if (updatedComment !== null) {
-                        commentElement.querySelector("p:last-of-type").textContent = updatedComment;
-                    }
-                });
-
-                deleteCommentButton.addEventListener("click", function() {
-                    commentsSection.removeChild(commentElement);
-                });
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-    const commentSubmitForm = document.getElementById("commentSubmitForm");
-    const commentsSection = document.getElementById("comments");
-
-    commentSubmitForm.addEventListener("submit", function(event) {
-        // Prevent the default form submission behavior
-        event.preventDefault();
-
-        const ratingInput = document.getElementById("ratingInput");
-        const newCommentInput = document.getElementById("newComment");
-
-        const rating = ratingInput.value;
-        const commentText = newCommentInput.value;
-
-        if (rating.trim() !== "" && commentText.trim() !== "") {
-            
-
-            // Create a new comment element
-            const commentElement = document.createElement("div");
-            commentElement.classList.add("comment");
-            commentElement.innerHTML = `
-                <div id="profilePic"><a href="user.html"></a></div>
-                <div id="info"><a href="user.html" id="usernameLink"></a></div>
-                <p><strong>Rating:</strong> ${rating}</p>
-                <p>${commentText}</p>
-                <button class="editCommentButton">Edit</button>
-                <button class="deleteCommentButton">Delete</button>
-            `;
-
-            // Add the comment to the comments section
-            commentsSection.appendChild(commentElement);
-
-            // Clear the input fields
-            ratingInput.value = "";
-            newCommentInput.value = "";
-
-            // Add event listeners for editing and deleting comments
-            const editCommentButton = commentElement.querySelector(".editCommentButton");
-            const deleteCommentButton = commentElement.querySelector(".deleteCommentButton");
-
-            editCommentButton.addEventListener("click", function() {
-                const existingComment = commentElement.querySelector("p:last-of-type").textContent;
-                const updatedComment = prompt("Edit your comment:", existingComment);
-
-                if (updatedComment !== null) {
-                    commentElement.querySelector("p:last-of-type").textContent = updatedComment;
-                }
-            });
-
-            deleteCommentButton.addEventListener("click", function() {
-                commentsSection.removeChild(commentElement);
-            });
-        }
-    });
-
-
-            // Call the function to populate the second HTML with company data
-            populateCompanyData();
-        });
-    </script>
 </body>
 </html>

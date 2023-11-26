@@ -78,19 +78,19 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
 
     
 
-   /* routes.post('/addreview', (req, res) => {
-      const username = req.body.username;
-      const time = req.body.time;
-      const restaurant = req.body.restaurant;
+    routes.post('/addreview', async (req, res) => {
+      //const username = req.body.username;
+      //const time = req.body.time;
+      //const restaurant = req.body.restaurant;
       const rating = req.body.rating;
       const comment = req.body.comment;
-      const email = req.body.email;
+      //const email = req.body.email;
 
       const db = client.db('MCO');
-      const profiles = db.collection('reviews');
+      const reviews = db.collection('reviews');
 
       try {
-        await reviews.insertOne({ username, time, restaurant, rating, comment, email });
+        await reviews.insertOne({ rating, comment });
         res.json({ status: 'ok' });
       } catch (e) {
         console.log(e);
@@ -98,7 +98,7 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
       }
 
     });
-*/
+
     routes.post('/edituser', (req, res) => {
       // insert code here
     });

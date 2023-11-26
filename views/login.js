@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (email === '' || password === '') {
             return;
         }
-
+        console.log(email, password);
         try {
             const response = await fetch(`/login?email=${email}&password=${password}`, {
                 method: 'GET',
