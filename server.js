@@ -78,34 +78,77 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
 
     
 
-    routes.post('/addreview', async (req, res) => {
-      //const username = req.body.username;
-      //const time = req.body.time;
-      //const restaurant = req.body.restaurant;
-      const rating = req.body.rating;
-      const comment = req.body.comment;
-      //const email = req.body.email;
+// ... (previous server.js code) ...
 
-      const db = client.db('MCO');
-      const reviews = db.collection('reviews');
+routes.post('/addcomment', async (req, res) => {
+  const rating = req.body.rating;
+  const commentText = req.body.commentText;
 
-      try {
-        await reviews.insertOne({ rating, comment });
-        res.json({ status: 'ok' });
-      } catch (e) {
-        console.log(e);
-        res.json({ status: 'error' });
-      }
+  const db = client.db('MCO');
+  const comments = db.collection('comments');
 
-    });
+  try {
+      await comments.insertOne({ rating, commentText });
+      res.json({ status: 'ok' });
+  } catch (e) {
+      console.log(e);
+      res.json({ status: 'error' });
+  }
+});
+
+routes.get('/getcomments', async (req, res) => {
+  const db = client.db('MCO');
+  const comments = db.collection('comments');
+
+  try {
+      const commentData = await comments.find({}).toArray();
+      res.json(commentData);
+  } catch (e) {
+      console.error('Error:', e);
+      res.json({ success: false });
+  }
+});
+
+
+
+// ... (remaining server.js code) ...
+
 
     routes.post('/edituser', (req, res) => {
       // insert code here
     });
 
-    routes.post('/editreview', (req, res) => {
-      // insert code here
-    });
+    routes.post('/editcomments', async (req, res) => {
+      const commentId = req.body.commentId; // Unique identifier for the comment
+      const updatedRating = req.body.updatedRating; // New rating
+      const updatedCommentText = req.body.updatedCommentText; // New comment text
+  
+      const db = client.db('MCO');
+      const comments = db.collection('comments');
+  
+      try {
+          // Update the comment based on the comment ID
+          const result = await comments.updateOne(
+              { _id: new MongoClient.ObjectId(commentId) }, // Assuming _id is the unique identifier
+              {
+                  $set: {
+                      rating: updatedRating,
+                      commentText: updatedCommentText,
+                  },
+              }
+          );
+  
+          // Check if the document was updated successfully
+          if (result.modifiedCount === 1) {
+              res.json({ status: 'ok' });
+          } else {
+              res.json({ status: 'error', message: 'Comment not found or no changes made' });
+          }
+      } catch (e) {
+          console.error('Error:', e);
+          res.json({ status: 'error' });
+      }
+  });
 
     
 });
