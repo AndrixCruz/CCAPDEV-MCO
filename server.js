@@ -40,13 +40,17 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
     routes.post('/register', async (req, res) => {
       const username = req.body.username;
       const email = req.body.email;
+      const AboutMe = req.body.AboutMe;
+      const age = req.body.age;
+      const gender = req.body.gender;
+      const food = req.body.food;
       const password = req.body.password;
 
       const db = client.db('MCO');
       const profiles = db.collection('profiles');
       
       try {
-        await profiles.insertOne({ username, email, password });
+        await profiles.insertOne({ username, email, AboutMe, age, gender, food, password });
         res.json({ status: 'ok' });
       } catch (e) {
         console.log(e);
@@ -78,9 +82,9 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
 
     
 
-// ... (previous server.js code) ...
 
 routes.post('/addcomment', async (req, res) => {
+  const company = req.body.company;
   const rating = req.body.rating;
   const commentText = req.body.commentText;
 
@@ -88,7 +92,7 @@ routes.post('/addcomment', async (req, res) => {
   const comments = db.collection('comments');
 
   try {
-      await comments.insertOne({ rating, commentText });
+      await comments.insertOne({ company, rating, commentText });
       res.json({ status: 'ok' });
   } catch (e) {
       console.log(e);
