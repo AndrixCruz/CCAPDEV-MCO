@@ -36,7 +36,7 @@ const client = new MongoClient(mongoURI);
           //console.log(e);
         //}
 
-export function getDb(dbName = process.env.DB_NAME){
+function getDb(dbName = process.env.DB_NAME){
   return client.db(dbName);
 }
     
