@@ -20,11 +20,21 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.use(routes);
 
 // MongoDB Connection URL
+// const mongoURI: string = 'mongodb://localhost:27017/MCO';
 const mongoURI = process.env.MONGODB_URI;
 
 const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
     // Serve the HTML files
 
+      // Start the server
+      //app.listen(3000, async () => {
+        //console.log(`YAY`);
+        //try {
+          //await client.connect();
+          //console.log('Connected to MongoDB');
+        //} catch (e) {
+          //console.log(e);
+        //}
     
     routes.post('/register', async (req, res) => {
       const username = req.body.username;
@@ -144,4 +154,4 @@ routes.get('/getcomments', async (req, res) => {
   });
 
     
-});
+// });
