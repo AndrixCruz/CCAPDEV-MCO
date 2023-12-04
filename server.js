@@ -20,21 +20,21 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.use(routes);
 
 // MongoDB Connection URL
-// const mongoURI: string = 'mongodb://localhost:27017/MCO';
-const mongoURI = process.env.MONGODB_URI;
+const mongoURI = 'mongodb://localhost:27017/';
+//const mongoURI = process.env.MONGODB_URI;
 
 const client = new MongoClient(mongoURI);
     // Serve the HTML files
 
       // Start the server
-      //app.listen(3000, async () => {
-        //console.log(`YAY`);
-        //try {
-          //await client.connect();
-          //console.log('Connected to MongoDB');
-        //} catch (e) {
-          //console.log(e);
-        //}
+      app.listen(3000, async () => {
+        console.log(`YAY`);
+        try {
+          await client.connect();
+          console.log('Connected to MongoDB');
+        } catch (e) {
+          console.log(e);
+        }
 
 function getDb(dbName = process.env.DB_NAME){
   return client.db(dbName);
@@ -158,4 +158,4 @@ routes.get('/getcomments', async (req, res) => {
   });
 
     
-// });
+});
