@@ -11,6 +11,10 @@ const app = express();
 const PORT = 3000;
 const routes = express.Router();
 
+const dotenv = require('dotenv');
+dotenv.config();
+
+const html = require('html');
 
 app.use(cors());
 routes.use(express.json());
@@ -18,6 +22,11 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'views'))); 
 app.use(routes);
+app.set('view engine', 'html');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', routes);
 
 // MongoDB Connection URL
 //const mongoURI = 'mongodb://localhost:27017/';
@@ -39,7 +48,19 @@ const client = new MongoClient(mongoURI);
 function getDb(dbName = process.env.DB_NAME){
   return client.db(dbName);
 }
-    
+
+  routes.get('/', (req, res) => {
+    res.sendFile('/views/index.html');
+  });
+
+  routes.get('/login', (req, res) => {
+    res.sendFile('/views/login.html');
+  });
+
+  routes.get('/register', (req, res) => {
+    res.sendFile('/views/register.html');
+  });
+
     routes.post('/register', async (req, res) => {
       const username = req.body.username;
       const email = req.body.email;
@@ -61,9 +82,9 @@ function getDb(dbName = process.env.DB_NAME){
       }
     });
 
-    routes.get('/login', async (req, res) => {
-    const email = req.query.email;
-    const password = req.query.password;
+    routes.post('/login', async (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
 
     const db = client.db('MCO');
     const profiles = db.collection('profiles');
