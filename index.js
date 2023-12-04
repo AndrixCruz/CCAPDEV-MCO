@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const Profile = require('./model/Profile');
 
 const app = express();
-const PORT = 3000;
+// const PORT = 3000;
 const routes = express.Router();
 
 
@@ -23,7 +23,7 @@ app.use(routes);
 // const mongoURI: string = 'mongodb://localhost:27017/MCO';
 const mongoURI = process.env.MONGODB_URI;
 
-const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(mongoURI);
     // Serve the HTML files
 
       // Start the server
