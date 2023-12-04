@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 const Profile = require('./model/Profile');
+const bcrypt = require('bcrypt');
 
 const app = express();
 const PORT = 3000;
@@ -73,8 +74,10 @@ function getDb(dbName = process.env.DB_NAME){
       const db = client.db('MCO');
       const profiles = db.collection('profiles');
       
+      const hashPassword = await bcrypt.hash(password, 10);
+
       try {
-        await profiles.insertOne({ username, email, AboutMe, age, gender, food, password });
+        await profiles.insertOne({ username, email, AboutMe, age, gender, food, password:hashPassword });
         res.json({ status: 'ok' });
       } catch (e) {
         console.log(e);
