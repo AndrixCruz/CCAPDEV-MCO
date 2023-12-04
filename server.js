@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const Profile = require('./model/Profile');
 
 const app = express();
-// const PORT = 3000;
+const PORT = 3000;
 const routes = express.Router();
 
 
