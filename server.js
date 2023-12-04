@@ -35,6 +35,10 @@ const client = new MongoClient(mongoURI);
         //} catch (e) {
           //console.log(e);
         //}
+
+export function getDb(dbName = process.env.DB_NAME){
+  return client.db(dbName);
+}
     
     routes.post('/register', async (req, res) => {
       const username = req.body.username;
