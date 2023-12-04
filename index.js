@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.use(routes);
 
 // MongoDB Connection URL
-const mongoURI = 'mongodb://localhost:27017/'; 
+const mongoURI = process.env.MONGODB_URI;
 
 const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
