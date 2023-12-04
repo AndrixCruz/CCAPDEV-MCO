@@ -23,17 +23,6 @@ app.use(routes);
 const mongoURI = process.env.MONGODB_URI;
 
 const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-    // Start the server
-    app.listen(3000, async () => {
-      console.log(`YAY`);
-      try {
-        await client.connect();
-        console.log('Connected to MongoDB');
-      } catch (e) {
-        console.log(e);
-      }
-      
     // Serve the HTML files
 
     
