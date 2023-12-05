@@ -52,62 +52,20 @@
         <div class="container">
             <div id="title"><h2>List of Profiles</h2></div>
 
-            {{#each }}
+            {{#each restaurantData}}
 
-            <!-- Beast Burger -->
             <div class="restaurant-card" style="justify-content: center;">
                 <div style="display: flex; flex-direction: column; align-items: center;">
-                    <img src="MrBeast.png" alt="Beast Burger" style="margin-bottom: 10px;">
-                    <h3 style="text-align: center; margin-bottom: 10px;">Beast Burger</h3>
+                    <img src="{{this.image}}" alt="{{this.name}}" style="margin-bottom: 10px;">
+                    <h3 style="text-align: center; margin-bottom: 10px;">{{this.name}}</h3>
                     <div class="review-toggle">
-                        <button class="btn" onclick="redirectToCompanyProfile(beastUser)">More</button>
+                        {{!-- button that redirect to companyprofile based on name --}}
+                        <button class="btn" onclick="window.location.href='/companyProfile?name={{this.name}}'">View Profile</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Kalsada Burger -->
-            <div class="restaurant-card" style="justify-content: center;">
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <img src="Kalsada.png" alt="Kalsada Burger" style="margin-bottom: 10px;">
-                    <h3 style="text-align: center; margin-bottom: 10px;">Kalsada Burger</h3>
-                    <div class="review-toggle">
-                        <button class="btn" onclick="redirectToCompanyProfile(kalsadaUser)">More</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Burger King -->
-            <div class="restaurant-card" style="justify-content: center;">
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <img src="BurgerKing.png" alt="Burger King" style="margin-bottom: 10px;">
-                    <h3 style="text-align: center; margin-bottom: 10px;">Burger King</h3>
-                    <div class="review-toggle">
-                        <button class="btn" onclick="redirectToCompanyProfile(bkUser)">More</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Zark's -->
-            <div class="restaurant-card" style="justify-content: center;">
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <img src="Zarks.png" alt="Zark's" style="margin-bottom: 10px;">
-                    <h3 style="text-align: center; margin-bottom: 10px;">Zark's</h3>
-                    <div class="review-toggle">
-                        <button class="btn" onclick="redirectToCompanyProfile(zarksUser)">More</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Wendys -->
-            <div class="restaurant-card" style="justify-content: center;">
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <img src="Wendys.png" alt="Tinuhog ni Benny" style="margin-bottom: 10px;">
-                    <h3 style="text-align: center; margin-bottom: 10px;">Wendy's</h3>
-                    <div class="review-toggle">
-                        <button class="btn" onclick="redirectToCompanyProfile(wendysUser)">More</button>
-                    </div>
-                </div>
-            </div>
+            {{/each}}
         </div>
     </section>
 </body>

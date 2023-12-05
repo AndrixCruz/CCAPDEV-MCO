@@ -42,7 +42,7 @@
     <section class="establishments">
         <div class="container">
             <span style="padding-left: 50px;">
-                <div id="title"><h2 id="companyName"> Kalsada Burger Profile</h2></div>
+                <div id="title"><h2 id="companyName">{{restaurant.name}}</h2></div>
             </span>
             <div class="profileCard">
                 <div id="kalsada" class="sprite" style="padding-right: 20px">
@@ -50,14 +50,14 @@
                 </div>
                 <div id="padding" class="review-toggle">
                     <div id="header">
-                        <h3><span style="color:black" id="companyNameLink"> Kalsada Burger</span></a></h3>
+                        <h3><span style="color:black" id="companyNameLink"></span></a></h3>
                         <button id="editProfileButton" class="btn-edit-profile" onclick="editDescription()">Edit</button>
                     </div>
                     <div id="desc">
-                        <p style="padding-bottom: 10px;" id="companyDescription">Kalsada Burger was Established By Mr. Ramon Miguel Alberto back in 2015. It currently has 9 branches and 2 upcoming branches in Mandaluyong and Antipolo.</p>
+                        <p style="padding-bottom: 10px;" id="companyDescription">{{restaurant.description}}</p>
                         <ul style="align-items:flex-start;">
-                            <li><p>Rating: <span id="companyRating"></span>/5</p></li>
-                            <li><p>Location: <a id="companyLocation" href=""></a></p></li>
+                            <li><p>Rating: {{restaurant.rating}}/5</p></li>
+                            <li><p>Location: {{restaurant.location}}</a></p></li>
                         </ul>
                     </div>
                 </div>

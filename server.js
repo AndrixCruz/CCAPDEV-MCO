@@ -83,6 +83,19 @@ routes.get('/user', (req, res) => {
   res.render('user', {layout: 'main'});
 });
 
+routes.get('/companyProfile', async (req, res) => {
+  const urlParams = new URLSearchParams(req.query);
+  const name = urlParams.get('name');
+  const db = client.db('MCO');
+  const restaurants = db.collection('restaurants');
+  const restaurant = await restaurants.findOne({ name });
+
+  const comments = db.collection('comments');
+  const commentsList = await comments.find({ company: name }).toArray();
+
+  res.render('companyProfile', { layout: 'main', restaurant });
+});
+
 routes.get('/search', async (req, res) => {
   try {
     const urlParams = new URLSearchParams(req.query);
