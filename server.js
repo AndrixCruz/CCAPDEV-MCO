@@ -85,7 +85,7 @@ function getDb(dbName = process.env.DB_NAME){
       }
     });
 
-    routes.get('/login', async (req, res) => {
+    routes.post('/login', async (req, res) => {
       const email = req.query.email;
       const password = req.query.password;
   
