@@ -46,7 +46,7 @@
             </span>
             <div class="profileCard">
                 <div id="kalsada" class="sprite" style="padding-right: 20px">
-                    <img src="" alt="Company Logo" id="companyLogo" class="sprite">
+                    <img src="{{restaurant.image}}" alt="Company Logo" id="companyLogo" class="sprite">
                 </div>
                 <div id="padding" class="review-toggle">
                     <div id="header">
@@ -56,7 +56,7 @@
                     <div id="desc">
                         <p style="padding-bottom: 10px;" id="companyDescription">{{restaurant.description}}</p>
                         <ul style="align-items:flex-start;">
-                            <li><p>Rating: {{restaurant.rating}}/5</p></li>
+                            <li><p>Rating: {{restaurant.rating}}</p></li>
                             <li><p>Location: {{restaurant.location}}</a></p></li>
                         </ul>
                     </div>
@@ -80,11 +80,20 @@
                                     <label for="ratingInput">Rating:</label>
                                     <input type="number" id="ratingInput" name="rating" step="1" min="1.0" max="5.0" placeholder="Your Rating" />
                                     <textarea id="newComment" rows="4" placeholder="Write your comment here"></textarea>
+                                    <input type="hidden" id="companyNameInput" name="companyName" value="{{restaurant.name}}" />
                                     <button id="addCommentButton">Add Comment</button>
                                 </form>
                             </div>
                             <div id="comments">
                                 <!-- Comments will be displayed here -->
+                                {{#each commentsList}}
+                                <div id="{{this._id}}">
+                                    <p><strong>Rating: </strong>{{this.rating}}</p>
+                                    <p>{{this.commentText}}</p>
+                                    <button class="editCommentButton">Edit</button>
+                                    <button class="deleteCommentButton">Delete</button>
+                                </div>
+                                {{/each}}
                             </div>
                         </div>
                     </div>

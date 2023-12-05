@@ -93,7 +93,7 @@ routes.get('/companyProfile', async (req, res) => {
   const comments = db.collection('comments');
   const commentsList = await comments.find({ company: name }).toArray();
 
-  res.render('companyProfile', { layout: 'main', restaurant });
+  res.render('companyProfile', { layout: 'main', restaurant, commentsList });
 });
 
 routes.get('/search', async (req, res) => {
@@ -179,19 +179,20 @@ routes.post('/login', async (req, res) => {
 });
 
 routes.post('/addcomment', async (req, res) => {
-  const company = req.body.company;
-  const rating = req.body.rating;
-  const commentText = req.body.commentText;
-
+  const { rating, comment, company } = req.body;
   const db = client.db('MCO');
   const comments = db.collection('comments');
 
-  try {
-      await comments.insertOne({ company, rating, commentText });
-      res.json({ status: 'ok' });
+  try { 
+    await comments.insertOne({
+      rating,
+      commentText: comment,
+      company,
+    });
+    res.json({ status: 'ok' });
   } catch (e) {
-      console.log(e);
-      res.json({ status: 'error' });
+    console.log(e);
+    res.json({ status: 'error' });
   }
 });
 
