@@ -29,83 +29,88 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 
-// MongoDB Connection URL
-//const mongoURI = 'mongodb://localhost:27017/';
 const mongoURI = process.env.MONGODB_URI;
 
 const client = new MongoClient(mongoURI);
-    // Serve the HTML files
 
-      // Start the server
-      app.listen(3000, async () => {
-        console.log(`YAY`);
-        try {
-          await client.connect();
-          console.log('Connected to MongoDB');
-        } catch (e) {
-          console.log(e);
-        }
+app.listen(PORT, async () => {
+  console.log(`Server listening on port ${PORT}`);
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB');
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 function getDb(dbName = process.env.DB_NAME){
   return client.db(dbName);
 }
 
-  routes.get('/', (req, res) => {
-    res.sendFile('/views/index.html');
-  });
+routes.get('/', (req, res) => {
+  res.sendFile('/views/index.html');
+});
 
-  routes.get('/login', (req, res) => {
-    res.sendFile('/views/login.html');
-  });
+routes.get('/login', (req, res) => {
+  res.sendFile('/views/login.html');
+});
 
-  routes.get('/register', (req, res) => {
-    res.sendFile('/views/register.html');
-  });
+routes.get('/register', (req, res) => {
+  res.sendFile('/views/register.html');
+});
 
-    routes.post('/register', async (req, res) => {
-      const username = req.body.username;
-      const email = req.body.email;
-      const AboutMe = req.body.AboutMe;
-      const age = req.body.age;
-      const gender = req.body.gender;
-      const food = req.body.food;
-      const password = req.body.password;
+routes.post('/register', async (req, res) => {
+  const username = req.body.username;
+  const email = req.body.email;
+  const aboutMe = req.body.AboutMe;
+  const age = req.body.age;
+  const gender = req.body.gender;
+  const food = req.body.food;
+  const password = req.body.password;
 
-      const db = client.db('MCO');
-      const profiles = db.collection('profiles');
-      
-      const hashPassword = await bcrypt.hash(password, 10);
+  const db = client.db('MCO');
+  const profiles = db.collection('profiles');
 
-      try {
-        await profiles.insertOne({ username, email, AboutMe, age, gender, food, password:hashPassword });
-        res.json({ status: 'ok' });
-      } catch (e) {
-        console.log(e);
-        res.json({ status: 'error' });
-      }
+  const hashPassword = await bcrypt.hash(password, 10);
+
+  try {
+    await profiles.insertOne({
+      username,
+      email,
+      AboutMe: aboutMe,
+      age,
+      gender,
+      food,
+      password: hashPassword,
     });
+    res.json({ status: 'ok' });
+  } catch (e) {
+    console.log(e);
+    res.json({ status: 'error' });
+  }
+});
 
-    routes.post('/login', async (req, res) => {
-      const email = req.body.email;
-      const password = req.body.password;
-      const db = client.db('MCO');
-      const profiles = db.collection('profiles');
-      try {
-          const user = await profiles.findOne({ email, password });
-          if (user) {
-              const username = user.username || "Guest"; // Default to "Guest" if username is not found
-              res.json({ status: 'ok', username });
-          } else {
-              res.json({ status: 'error' });
-          }
-      } catch (e) {
-          console.error('Error:', e);
-          res.json({ success: false });
-      }
-  });
+routes.post('/login', async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
 
-    
+  const db = client.db('MCO');
+  const profiles = db.collection('profiles');
 
+  try {
+    const profile = await profiles.findOne({ email });
+    const result = await bcrypt.compare(password, profile.password);
+
+    if (result) {
+      res.json({ status: 'ok' });
+    } else {
+      res.json({ status: 'error', message: 'Invalid password' });
+    }
+  } catch (e) {
+    console.log(e);
+    res.json({ status: 'error', message: 'Invalid username' });
+  }
+});
 
 routes.post('/addcomment', async (req, res) => {
   const company = req.body.company;
@@ -137,46 +142,35 @@ routes.get('/getcomments', async (req, res) => {
   }
 });
 
+routes.post('/editpost', async (req, res) => {
 
+});
 
-// ... (remaining server.js code) ...
+routes.post('/editcomments', async (req, res) => {
+  const commentId = req.body.commentId;
+  const updatedRating = req.body.updatedRating;
+  const updatedCommentText = req.body.updatedCommentText;
 
+  const db = client.db('MCO');
+  const comments = db.collection('comments');
 
-    routes.post('/edituser', (req, res) => {
-      // insert code here
+  try {
+    const result = await comments.updateOne({
+      _id: new MongoClient.ObjectId(commentId),
+    }, {
+      $set: {
+        rating: updatedRating,
+        commentText: updatedCommentText,
+      },
     });
 
-    routes.post('/editcomments', async (req, res) => {
-      const commentId = req.body.commentId; // Unique identifier for the comment
-      const updatedRating = req.body.updatedRating; // New rating
-      const updatedCommentText = req.body.updatedCommentText; // New comment text
-  
-      const db = client.db('MCO');
-      const comments = db.collection('comments');
-  
-      try {
-          // Update the comment based on the comment ID
-          const result = await comments.updateOne(
-              { _id: new MongoClient.ObjectId(commentId) }, // Assuming _id is the unique identifier
-              {
-                  $set: {
-                      rating: updatedRating,
-                      commentText: updatedCommentText,
-                  },
-              }
-          );
-  
-          // Check if the document was updated successfully
-          if (result.modifiedCount === 1) {
-              res.json({ status: 'ok' });
-          } else {
-              res.json({ status: 'error', message: 'Comment not found or no changes made' });
-          }
-      } catch (e) {
-          console.error('Error:', e);
-          res.json({ status: 'error' });
-      }
-  });
-
-    
+    if (result.modifiedCount === 1) {
+      res.json({ status: 'ok' });
+    } else {
+      res.json({ status: 'error', message: 'Comment not found or no changes made' });
+    }
+  } catch (e) {
+    console.log(e);
+    res.json({ status: 'error' });
+  }
 });
