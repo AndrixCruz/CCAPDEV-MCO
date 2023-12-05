@@ -37,22 +37,44 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (clickedButton) {
       const buttonId = clickedButton.id;
       if (buttonId) {
-        const response = await fetch('/deletecomment', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            buttonId,
-          })
-        });
+        // Check if class is equal to editCommentButton
+        if (clickedButton.classList.contains('helpfulButton')) {
+          const response = await fetch('/helpfulcomment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              buttonId,
+            })
+          });
 
-        const data = await response.json();
+          const data = await response.json();
 
-        if (data.status === 'ok') {
-          window.location.reload();
-        } else {
-          console.log('Error');
+          if (data.status === 'ok') {
+            alert('Review marked as helpful');
+            window.location.reload();
+          } else {
+            console.log('Error');
+          }
+        } else if (clickedButton.classList.contains('deleteCommentButton')) {
+          const response = await fetch('/deletecomment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              buttonId,
+            })
+          });
+  
+          const data = await response.json();
+  
+          if (data.status === 'ok') {
+            window.location.reload();
+          } else {
+            console.log('Error');
+          }
         }
       }
     }

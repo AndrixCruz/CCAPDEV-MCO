@@ -248,13 +248,31 @@ routes.post('/editcomments', async (req, res) => {
 routes.post('/deletecomment', async (req, res) => {
   const commentId = req.body.buttonId;
 
-  console.log(commentId);
-
   const db = client.db('MCO');
   const comments = db.collection('comments');
 
   try {
     await comments.deleteOne({ id: parseInt(commentId) });
+    res.json({ status: 'ok' });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+routes.post('/helpfulcomment', async (req, res) => {
+  const commentId = req.body.buttonId;
+
+  const db = client.db('MCO');
+  const comments = db.collection('comments');
+
+  try {
+    const comment = await comments.findOne({ id: parseInt(commentId) });
+
+    await comments.updateOne(
+      { id: parseInt(commentId) },
+      { $set: { helpful: true } },
+    );
+
     res.json({ status: 'ok' });
   } catch (e) {
     console.log(e);
