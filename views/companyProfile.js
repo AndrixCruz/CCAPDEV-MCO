@@ -28,4 +28,33 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.log('Error');
     }
   });
+
+  const commentsContainer = document.getElementById('comments');
+
+  commentsContainer.addEventListener('click', async (e) => {
+    const clickedButton = e.target.closest('button');
+
+    if (clickedButton) {
+      const buttonId = clickedButton.id;
+      if (buttonId) {
+        const response = await fetch('/deletecomment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            buttonId,
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'ok') {
+          window.location.reload();
+        } else {
+          console.log('Error');
+        }
+      }
+    }
+  });
 });

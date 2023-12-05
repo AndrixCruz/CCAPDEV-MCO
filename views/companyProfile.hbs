@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Reviews - Reviews</title>
     <link rel="stylesheet" href="design.css">
-    <script src="addcomment.js"></script>  
+    <script src="companyProfile.js"></script>  
     <style>
         .review-info {
             display: none;
@@ -87,11 +87,12 @@
                             <div id="comments">
                                 <!-- Comments will be displayed here -->
                                 {{#each commentsList}}
-                                <div id="{{this._id}}">
+                                <div id="{{this.id}}">
                                     <p><strong>Rating: </strong>{{this.rating}}</p>
                                     <p>{{this.commentText}}</p>
-                                    <button class="editCommentButton">Edit</button>
-                                    <button class="deleteCommentButton">Delete</button>
+                                    <button class="editCommentButton" id="{{this.id}}">Edit</button>
+                                    <button class="deleteCommentButton" id="{{this.id}}">Delete</button>
+                                    <button class="helpfulButton" id="{{this.id}}">Helpful</button>
                                 </div>
                                 {{/each}}
                             </div>

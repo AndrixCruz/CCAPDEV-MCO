@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const mongoStore = require('connect-mongo');
 const exphbs = require('express-handlebars');
+const ObjectId = require('mongodb').ObjectId;
 
 const app = express();
 const PORT = 3000;
@@ -183,11 +184,17 @@ routes.post('/addcomment', async (req, res) => {
   const db = client.db('MCO');
   const comments = db.collection('comments');
 
+  // Get highest commentId and increment by 1
+  const highestCommentId = await comments.find().sort({ id: -1 }).limit(1).toArray();
+  const id = highestCommentId.length === 0 ? 1 : highestCommentId[0].id + 1;
+
   try { 
     await comments.insertOne({
+      id,
       rating,
       commentText: comment,
       company,
+      helpful: null,
     });
     res.json({ status: 'ok' });
   } catch (e) {
@@ -235,5 +242,21 @@ routes.post('/editcomments', async (req, res) => {
   } catch (e) {
     console.log(e);
     res.json({ status: 'error' });
+  }
+});
+
+routes.post('/deletecomment', async (req, res) => {
+  const commentId = req.body.buttonId;
+
+  console.log(commentId);
+
+  const db = client.db('MCO');
+  const comments = db.collection('comments');
+
+  try {
+    await comments.deleteOne({ id: parseInt(commentId) });
+    res.json({ status: 'ok' });
+  } catch (e) {
+    console.log(e);
   }
 });
