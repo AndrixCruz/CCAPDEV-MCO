@@ -85,27 +85,30 @@ function getDb(dbName = process.env.DB_NAME){
       }
     });
 
-    routes.post('/login', async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-
-    const db = client.db('MCO');
-    const profiles = db.collection('profiles');
-
-    try {
-        const user = await profiles.findOne({ email, password });
-
+    routes.get('/login', async (req, res) => {
+      const email = req.query.email;
+      const password = req.query.password;
+  
+      const db = client.db('MCO');
+      const profiles = db.collection('profiles');
+  
+      try {
+        const user = await profiles.findOne({ email });
+  
         if (user) {
+          const storedHashedPassword = user.password;
+          const isPasswordCorrect = await bcrypt.compare(password, storedHashedPassword);
+          if (isPasswordCorrect) {
             const username = user.username || "Guest"; // Default to "Guest" if username is not found
             res.json({ status: 'ok', username });
         } else {
             res.json({ status: 'error' });
-        }
-    } catch (e) {
+        }}
+       } catch (e) {
         console.error('Error:', e);
         res.json({ success: false });
     }
-}); 
+  });
 
     
 
