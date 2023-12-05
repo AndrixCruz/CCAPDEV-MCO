@@ -7,6 +7,7 @@ const MongoClient = require('mongodb').MongoClient;
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const mongoStore = require('connect-mongo');
+const exphbs = require('express-handlebars');
 
 const app = express();
 const PORT = 3000;
@@ -21,9 +22,12 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'views'))); 
 app.use(routes);
-app.set('view engine', 'html');
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.set('view engine', 'hbs');
+app.engine('hbs', exphbs.engine({ 
+  extname: '.hbs',
+  layoutsDir: path.join(__dirname, 'views/layouts'),
+}));
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -56,19 +60,37 @@ function getDb(dbName = process.env.DB_NAME){
 }
 
 routes.get('/', (req, res) => {
-  res.sendFile('/views/index.html');
+  res.render('index', {layout: 'main'});
 });
 
 routes.get('/login', (req, res) => {
-  res.sendFile('/views/login.html');
+  res.render('login', {layout: 'main'});
 });
 
 routes.get('/register', (req, res) => {
-  res.sendFile('/views/register.html');
+  res.render('register', {layout: 'main'});
 });
 
-routes.get('/user', async (req, res) => {
-  res.sendFile('/views/user.html');
+routes.get('/user', (req, res) => {
+  res.render('user', {layout: 'main'});
+});
+
+routes.get('/search', async (req, res) => {
+  try {
+    const urlParams = new URLSearchParams(req.query);
+    const searchQuery = urlParams.get('query');
+
+    const db = client.db('MCO');
+    const comments = db.collection('comments');
+    const restaurants = db.collection('restaurants');
+
+    const commentsList = await comments.find({ commentText: { $regex: searchQuery, $options: 'i' } }).toArray();
+    const restaurantsList = await restaurants.find({ name: { $regex: searchQuery, $options: 'i' } }).toArray();
+
+    res.render('search', { layout: 'main', commentsList, restaurantsList });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 routes.post('/register', async (req, res) => {
