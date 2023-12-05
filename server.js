@@ -59,6 +59,10 @@ routes.get('/register', (req, res) => {
   res.sendFile('/views/register.html');
 });
 
+routes.get('/user', async (req, res) => {
+  res.sendFile('/views/user.html');
+});
+
 routes.post('/register', async (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
