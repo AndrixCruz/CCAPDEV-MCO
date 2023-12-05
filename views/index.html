@@ -30,7 +30,7 @@
                 <div class="nav-links">
                     <div id="gitna">
                         <div id="logo">Restaurant Reviews</div>
-                        <div id="resto" class="currentPage"><a href="profile.html">•Home•</a></div>
+                        <div id="resto" class="currentPage"><a href="index.html">•Home•</a></div>
                         <div id="login"><a href="login.html">•Logout•</a></div>
                         <div id="profilePic"><a href="user.html"></a></div>
                         <div id="info"><a href="user.html" id="usernameLink" style="padding-left: 10px;"></a></div>
@@ -44,6 +44,7 @@
         <div class="container">
             <h2>Welcome to Restaurant Reviews</h2>
             <p>Discover the best restaurants in your area and share your dining experiences with others.</p>
+            <textarea id="search" name="search" rows="1" cols="50" placeholder="Search for restaurants..."></textarea>
     </section>
 
     <section class="featured-restaurants">
@@ -108,14 +109,14 @@
             <!-- ... (other establishments) ... -->
 
             <script>
- document.addEventListener("DOMContentLoaded", async function () {
-            // Retrieve the username from the URL parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const loggedInUsername = urlParams.get('username') || "Guest";
+            document.addEventListener("DOMContentLoaded", async function () {
+                // Retrieve the username from the URL parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                const loggedInUsername = urlParams.get('username') || "Guest";
 
-            // Set the username in the header
-            document.getElementById("usernameLink").textContent = loggedInUsername;
-        });
+                // Set the username in the header
+                document.getElementById("usernameLink").textContent = loggedInUsername;
+            });
                 // Define user objects for all establishments
                 const beastUser = {
                     name: 'Beast Burger',

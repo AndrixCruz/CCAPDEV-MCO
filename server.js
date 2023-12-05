@@ -4,9 +4,9 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
-const mongoose = require('mongoose');
-const Profile = require('./model/Profile');
 const bcrypt = require('bcryptjs');
+const session = require('express-session');
+const mongoStore = require('connect-mongo');
 
 const app = express();
 const PORT = 3000;
@@ -14,8 +14,6 @@ const routes = express.Router();
 
 const dotenv = require('dotenv');
 dotenv.config();
-
-const html = require('html');
 
 app.use(cors());
 routes.use(express.json());
@@ -26,6 +24,16 @@ app.use(routes);
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  store: mongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+    ttl: 14 * 24 * 60 * 60,
+  }),
+}));
 
 app.use('/', routes);
 
@@ -106,7 +114,18 @@ routes.post('/login', async (req, res) => {
     const result = await bcrypt.compare(password, profile.password);
 
     if (result) {
-      res.json({ status: 'ok' });
+      if (!req.session) {
+        req.session = {};
+      }
+
+      if (req.session.authenticated) {
+        req.session.email = email;
+        res.json({ status: 'ok' });
+      } else {
+        req.session.authenticated = true;
+        req.session.email = email;
+        res.json({ status: 'ok' });
+      }
     } else {
       res.json({ status: 'error', message: 'Invalid password' });
     }
@@ -152,21 +171,17 @@ routes.post('/editpost', async (req, res) => {
 
 routes.post('/editcomments', async (req, res) => {
   const commentId = req.body.commentId;
-  const updatedRating = req.body.updatedRating;
-  const updatedCommentText = req.body.updatedCommentText;
+  const commentText = req.body.updatedCommentText;
 
   const db = client.db('MCO');
   const comments = db.collection('comments');
 
   try {
-    const result = await comments.updateOne({
-      _id: new MongoClient.ObjectId(commentId),
-    }, {
-      $set: {
-        rating: updatedRating,
-        commentText: updatedCommentText,
-      },
-    });
+    // Update comment based on commentId
+    const result = await comments.updateOne(
+      { _id: ObjectId(commentId) },
+      { $set: { commentText}},
+    );
 
     if (result.modifiedCount === 1) {
       res.json({ status: 'ok' });

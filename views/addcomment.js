@@ -151,6 +151,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 // Check if the comment belongs to the current company
                 if (comment.company === currentCompanyName) {
                     const commentElement = document.createElement("div");
+                    commentElement.id = comment._id;
                     commentElement.classList.add("comment");
                     commentElement.innerHTML = `
                         <p><strong>Rating:</strong> ${comment.rating}</p>
@@ -164,11 +165,35 @@ document.addEventListener("DOMContentLoaded", async function () {
                     const deleteCommentButton = commentElement.querySelector(".deleteCommentButton");
     
                     editCommentButton.addEventListener("click", async function () {
-                        // ... (unchanged code)
+                      // Edit modal to change text
+                      const existingComment = commentElement.querySelector("p:last-of-type").textContent;
+                      const updatedComment = prompt("Edit your comment:", existingComment);
+
+                      if (updatedComment !== null) {
+                        const commentId = commentElement.id;
+    
+                        // Send the updated comment to the server with the company name
+                        const response = await fetch('/editcomments', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({
+                            commentId: commentId,
+                            updatedCommentText: updatedComment,
+                          }),
+                        });
+    
+                        // Check the response from the server
+                        const responseData = await response.json();
+                        if (responseData.status == 'ok') {
+                          window.location.reload();
+                        }
+                      }
                     });
     
                     deleteCommentButton.addEventListener("click", async function () {
-                        // ... (unchanged code)
+
                     });
                 }
             });
