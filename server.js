@@ -59,8 +59,16 @@ function getDb(dbName = process.env.DB_NAME){
   return client.db(dbName);
 }
 
-routes.get('/', (req, res) => {
-  res.render('index', {layout: 'main'});
+routes.get('/', async (req, res) => {
+  const db = client.db('MCO');
+  const restaurants = db.collection('restaurants');
+
+  try {
+    const restaurantData = await restaurants.find({}).toArray();
+    res.render('index', { layout: 'main', restaurantData });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 routes.get('/login', (req, res) => {
