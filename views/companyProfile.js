@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 
-  const commentsContainer = document.getElementById('comments');
+  const commentsContainer = document.getElementById('commentsContainer');
 
   commentsContainer.addEventListener('click', async (e) => {
     const clickedButton = e.target.closest('button');

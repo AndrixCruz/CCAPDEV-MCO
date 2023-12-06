@@ -51,7 +51,6 @@
                 <div id="padding" class="review-toggle">
                     <div id="header">
                         <h3><span style="color:black" id="companyNameLink"></span></a></h3>
-                        <button id="editProfileButton" class="btn-edit-profile" onclick="editDescription()">Edit</button>
                     </div>
                     <div id="desc">
                         <p style="padding-bottom: 10px;" id="companyDescription">{{restaurant.description}}</p>
@@ -84,42 +83,29 @@
                                     <button id="addCommentButton">Add Comment</button>
                                 </form>
                             </div>
-                            <div id="comments">
+                            <div id="commentsContainer">
+                                <div id="commentsLeft">
                                 <!-- Comments will be displayed here -->
-                                {{!-- List comments with null parent --}}
-                                {{#each combinedList}}
-                                    {{#if this.parent}}
-                                        {{!-- Do nothing --}}
-                                    {{else}}
-                                        <div id="{{this.id}}" class="comment">
-                                            <p><strong>Rating: </strong>{{this.rating}}</p>
+                                    {{#each commentsList}}
+                                        <div class="comment" id="commentLeft">
+                                            <h2>Review #{{this.id}}</h2>
+                                            <h3>Rating: {{this.rating}} / 5</h3>
                                             <p>{{this.commentText}}</p>
                                             <button class="editCommentButton" id="{{this.id}}">Edit</button>
                                             <button class="deleteCommentButton" id="{{this.id}}">Delete</button>
                                             <button class="helpfulButton" id="{{this.id}}">Helpful</button>
                                             <button class="replyButton" id="{{this.id}}">Reply</button>
-                                            <div class="review-info">
-                                                <form id="editCommentForm">
-                                                    <label for="ratingInput">Rating:</label>
-                                                    <input type="number" id="ratingInput" name="rating" step="1" min="1.0" max="5.0" placeholder="Your Rating" />
-                                                    <textarea id="newComment" rows="4" placeholder="Write your comment here"></textarea>
-                                                    <input type="hidden" id="companyNameInput" name="companyName" value="{{restaurant.name}}" />
-                                                    <button id="editCommentButton">Edit Comment</button>
-                                                </form>
-                                            </div>
                                         </div>
-                                    {{/if}}
-                                {{/each}}
-                                {{!-- List comments with parent --}}
-                                {{#each combinedList}}
-                                    {{#if this.parent}}
-                                        <div id="{{this.id}}" class="comment" style="margin-left: 20px;">
+                                    {{/each}}
+                                </div>
+                                <div id="commentsRight">
+                                    {{#each repliesList}}
+                                        <div class="comment" id="commentRight">
+                                            <h2>Reply to Review#{{this.parent}}</h2>
                                             <p>{{this.commentText}}</p>
                                         </div>
-                                    {{else}}
-                                        {{!-- Do nothing --}}
-                                    {{/if}}
-                                {{/each}}
+                                    {{/each}}
+                                </div>
                             </div>
                         </div>
                     </div>

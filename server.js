@@ -131,12 +131,7 @@ routes.get('/companyProfile', async (req, res) => {
   // Get comments with company name and with parent
   const repliesList = await comments.find({ company: name, parent: { $ne: null } }).toArray();
 
-  // Combine commentsList and repliesList
-  const combinedList = commentsList.concat(repliesList);
-
-  console.log(combinedList);
-
-  res.render('companyProfile', { layout: 'main', restaurant, commentsList, repliesList, combinedList });
+  res.render('companyProfile', { layout: 'main', restaurant, commentsList, repliesList });
 });
 
 routes.get('/search', async (req, res) => {
@@ -238,7 +233,7 @@ routes.post('/addcomment', async (req, res) => {
       commentText: comment,
       company,
       helpful: null,
-      parent: parent ? new ObjectId(parent) : parent,
+      parent: parent === 'null' ? null : parent,
     });
     res.json({ status: 'ok' });
   } catch (e) {
@@ -259,7 +254,7 @@ routes.post('/ownercomment', async (req, res) => {
   const id = highestCommentId.length === 0 ? 1 : highestCommentId[0].id + 1;
 
   const comment = await comments.findOne({ id: parseInt(commentId) });
-  const parentId = comment._id;
+  const parentId = comment.id;
 
   try {
     await comments.insertOne({

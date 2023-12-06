@@ -391,6 +391,7 @@ footer {
     display: flex;
     flex-direction : column;
     text-align: left;
+    width: 100%;
 }
 
 .like-dislike-buttons {
@@ -421,6 +422,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     margin: 20px 0;
+    width: 100%;
 }
 
 .rating-input,
@@ -442,3 +444,27 @@ footer {
 #ratingInput {
     margin-bottom: 0;
 }
+
+#commentSection {
+    width: 100%;
+}
+
+#commentsContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#commentsLeft {
+    /* Keep on the left of the parent div */
+    flex: 1;
+    margin-right: 20px;
+}
+
+#commentsRight {
+    /* Keep on the right of the parent div */
+    flex: 1;
+    margin-left: 20px;
+}
+
