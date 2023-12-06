@@ -16,25 +16,23 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     saveProfileButton.addEventListener("click", async function () {
-        const AboutMe = document.getElementById("newDescription").value;
-        const age = document.getElementById("newAge").value;
-        const gender = document.getElementById("newGender").value;
-        const food = document.getElementById("newFood").value;
-        const username = document.getElementById("newUsername").innerHTML;
-
-        console.log(AboutMe, age, gender, food, username);
+        let AboutMe = document.getElementById("newDescription").value;
+        let age = document.getElementById("newAge").value;
+        let gender = document.getElementById("newGender").value;
+        let food = document.getElementById("newFood").value;
+        let username = document.getElementById("newUsername").innerHTML;
 
         if (AboutMe === "") {
-            AboutMe = document.getElementById("userDescription").value;
+            AboutMe = document.getElementById("oldDescription").value;
         } 
         if (age === "") {
-            age = document.getElementById("userDetailsAge").value;
+            age = document.getElementById("oldAge").value;
         }
         if (gender === "") {
-            gender = document.getElementById("userDetailsGender").value;
+            gender = document.getElementById("oldGender").value;
         }
         if (food === "") {
-            food = document.getElementById("userDetailsFood").value;
+            food = document.getElementById("oldFood").value;
         }
 
         const response = await fetch("/edituser", {

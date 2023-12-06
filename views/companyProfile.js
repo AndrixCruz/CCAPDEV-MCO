@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (data.status === 'ok') {
       window.location.reload();
     } else {
-      console.log('Error');
+      alert(data.message);
     }
   });
 
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           if (data.status === 'ok') {
             window.location.reload();
           } else {
-            console.log('Error');
+            alert(data.message);
           }
         } else if (clickedButton.classList.contains("replyButton")) {
           const ownerReply = window.prompt("Reply to this comment");
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           if (data.status === 'ok') {
             window.location.reload();
           } else {
-            console.log('Error');
+            alert(data.message);
           }
         }
       }

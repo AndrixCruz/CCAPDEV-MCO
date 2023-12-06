@@ -128,6 +128,10 @@ routes.get('/search', async (req, res) => {
     const urlParams = new URLSearchParams(req.query);
     const searchQuery = urlParams.get('query');
 
+    if (searchQuery === '') {
+      res.redirect('/');
+    }
+
     const db = client.db('MCO');
     const comments = db.collection('comments');
     const restaurants = db.collection('restaurants');
@@ -155,6 +159,12 @@ routes.post('/register', async (req, res) => {
   const profiles = db.collection('profiles');
 
   const hashPassword = await bcrypt.hash(password, 10);
+
+  const existingEmail = await profiles.findOne({ email });
+  if (existingEmail) {
+    res.json({ status: 'error', message: 'Email already exists' });
+    return;
+  }
 
   try {
     await profiles.insertOne({
@@ -186,7 +196,9 @@ routes.post('/login', async (req, res) => {
     const result = await bcrypt.compare(password, profile.password);
 
     if (result) {
-      req.session = {};
+      if (!req.session) {
+        req.session = {};
+      }
 
       if (req.session.authenticated) {
         req.session.email = email;
@@ -203,7 +215,7 @@ routes.post('/login', async (req, res) => {
     }
   } catch (e) {
     console.log(e);
-    res.json({ status: 'error', message: 'Invalid username' });
+    res.json({ status: 'error', message: 'Invalid email' });
   }
 });
 
@@ -211,6 +223,21 @@ routes.post('/addcomment', async (req, res) => {
   const { rating, comment, company, parent } = req.body;
   const db = client.db('MCO');
   const comments = db.collection('comments');
+
+  if (rating === '' && comment === '') {
+    res.json({ status: 'error', message: 'Please fill out all the fields' });
+    return;
+  }
+
+  if (comment === '') {
+    res.json({ status: 'error', message: 'Please enter a comment' });
+    return;
+  }
+
+  if (rating === '') {
+    res.json({ status: 'error', message: 'Please enter a rating' });
+    return;
+  }
 
   // Get highest commentId and increment by 1
   const highestCommentId = await comments.find().sort({ id: -1 }).limit(1).toArray();
@@ -239,6 +266,11 @@ routes.post('/ownercomment', async (req, res) => {
 
   const db = client.db('MCO');
   const comments = db.collection('comments');
+
+  if (commentText === '') {
+    res.json({ status: 'error', message: 'Please enter a comment' });
+    return;
+  }
 
   const highestCommentId = await comments.find().sort({ id: -1 }).limit(1).toArray();
   const id = highestCommentId.length === 0 ? 1 : highestCommentId[0].id + 1;
@@ -299,6 +331,11 @@ routes.post('/edituser', async (req, res) => {
 routes.post('/editcomment', async (req, res) => {
   const commentId = req.body.buttonId;
   const commentText = req.body.editedComment;
+
+  if (commentText === '') {
+    res.json({ status: 'error', message: 'Please enter a comment' });
+    return;
+  }
 
   const db = client.db('MCO');
   const comments = db.collection('comments');

@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 alert('Logged in successfully');
                 window.location.href = `/`;
             } else {
-                alert('Something went wrong');
+                alert(data.message);
             }
         } catch (err) {
             console.log(err);
