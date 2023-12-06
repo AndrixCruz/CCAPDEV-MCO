@@ -75,6 +75,27 @@ document.addEventListener("DOMContentLoaded", async function () {
           } else {
             console.log('Error');
           }
+        } else if (clickedButton.classList.contains("editCommentButton")) {
+          const editedComment = window.prompt("Edit your comment");
+
+          const response = await fetch('/editcomment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              buttonId,
+              editedComment,
+            })
+          });
+
+          const data = await response.json();
+
+          if (data.status === 'ok') {
+            window.location.reload();
+          } else {
+            console.log('Error');
+          }
         }
       }
     }

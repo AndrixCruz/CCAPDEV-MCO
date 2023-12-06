@@ -221,28 +221,21 @@ routes.post('/editpost', async (req, res) => {
 
 });
 
-routes.post('/editcomments', async (req, res) => {
-  const commentId = req.body.commentId;
-  const commentText = req.body.updatedCommentText;
+routes.post('/editcomment', async (req, res) => {
+  const commentId = req.body.buttonId;
+  const commentText = req.body.editedComment;
 
   const db = client.db('MCO');
   const comments = db.collection('comments');
 
   try {
-    // Update comment based on commentId
-    const result = await comments.updateOne(
-      { _id: ObjectId(commentId) },
-      { $set: { commentText}},
+    await comments.updateOne(
+      { id: parseInt(commentId) },
+      { $set: { commentText } },
     );
-
-    if (result.modifiedCount === 1) {
-      res.json({ status: 'ok' });
-    } else {
-      res.json({ status: 'error', message: 'Comment not found or no changes made' });
-    }
+    res.json({ status: 'ok' });
   } catch (e) {
     console.log(e);
-    res.json({ status: 'error' });
   }
 });
 
