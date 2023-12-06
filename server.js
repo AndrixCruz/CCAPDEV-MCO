@@ -60,7 +60,7 @@ function getDb(dbName = process.env.DB_NAME){
   return client.db(dbName);
 }
 
-routes.get('/', async (req, res) => {
+app.get('/', async (req, res) => {
   const db = client.db('MCO');
   const restaurants = db.collection('restaurants');
 
@@ -72,7 +72,7 @@ routes.get('/', async (req, res) => {
   }
 });
 
-routes.get('/user', async (req, res) => {
+app.get('/user', async (req, res) => {
   const db = client.db('MCO');
   const profiles = db.collection('profiles');
   const profile = await profiles.findOne({ email: "machew@gmail.com" });
@@ -84,25 +84,34 @@ routes.get('/user', async (req, res) => {
   }
 });
 
-routes.get('/login', (req, res) => {
+app.get('/login', (req, res) => {
   res.render('login', {layout: 'main'});
 });
 
-routes.get('/logout', (req, res) => {
-  if (!req.session) {
-    console.log('No session');
+app.get('/authenticated', (req, res) => {
+  if (req.session.authenticated) {
+    res.render('authenticated', {layout: 'main'});
   } else {
-    console.log('Session exists');
+    res.redirect('/');
   }
-
-  res.redirect('/');
 });
 
-routes.get('/register', (req, res) => {
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'error' });
+    } else {
+      res.redirect('/');
+    }
+  });
+});
+
+app.get('/register', (req, res) => {
   res.render('register', {layout: 'main'});
 });
 
-routes.get('/companyProfile', async (req, res) => {
+app.get('/companyProfile', async (req, res) => {
   const urlParams = new URLSearchParams(req.query);
   const name = urlParams.get('name');
   const db = client.db('MCO');
@@ -118,7 +127,7 @@ routes.get('/companyProfile', async (req, res) => {
   res.render('companyProfile', { layout: 'main', restaurant, commentsList, repliesList });
 });
 
-routes.get('/search', async (req, res) => {
+app.get('/search', async (req, res) => {
   try {
     const urlParams = new URLSearchParams(req.query);
     const searchQuery = urlParams.get('query');
@@ -141,7 +150,7 @@ routes.get('/search', async (req, res) => {
   }
 });
 
-routes.post('/register', async (req, res) => {
+app.post('/register', async (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
   const aboutMe = req.body.AboutMe;
@@ -179,7 +188,7 @@ routes.post('/register', async (req, res) => {
   }
 });
 
-routes.post('/login', async (req, res) => {
+app.post('/login', async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -220,7 +229,7 @@ routes.post('/login', async (req, res) => {
   }
 });
 
-routes.post('/addcomment', async (req, res) => {
+app.post('/addcomment', async (req, res) => {
   const { rating, comment, company, parent } = req.body;
   const db = client.db('MCO');
   const comments = db.collection('comments');
@@ -260,7 +269,7 @@ routes.post('/addcomment', async (req, res) => {
   }
 });
 
-routes.post('/ownercomment', async (req, res) => {
+app.post('/ownercomment', async (req, res) => {
   const commentId = req.body.buttonId;
   const commentText = req.body.ownerReply;
   const company = req.body.company;
@@ -294,7 +303,7 @@ routes.post('/ownercomment', async (req, res) => {
   }
 });
 
-routes.get('/getcomments', async (req, res) => {
+app.get('/getcomments', async (req, res) => {
   const db = client.db('MCO');
   const comments = db.collection('comments');
 
@@ -307,7 +316,7 @@ routes.get('/getcomments', async (req, res) => {
   }
 });
 
-routes.post('/edituser', async (req, res) => {
+app.post('/edituser', async (req, res) => {
   const { AboutMe, age, gender, food, username } = req.body;
   const db = client.db('MCO');
   const profiles = db.collection('profiles');
@@ -329,7 +338,7 @@ routes.post('/edituser', async (req, res) => {
   }
 });
 
-routes.post('/editcomment', async (req, res) => {
+app.post('/editcomment', async (req, res) => {
   const commentId = req.body.buttonId;
   const commentText = req.body.editedComment;
 
@@ -352,7 +361,7 @@ routes.post('/editcomment', async (req, res) => {
   }
 });
 
-routes.post('/deletecomment', async (req, res) => {
+app.post('/deletecomment', async (req, res) => {
   const commentId = req.body.buttonId;
 
   const db = client.db('MCO');
@@ -366,7 +375,7 @@ routes.post('/deletecomment', async (req, res) => {
   }
 });
 
-routes.post('/helpfulcomment', async (req, res) => {
+app.post('/helpfulcomment', async (req, res) => {
   const commentId = req.body.buttonId;
 
   const db = client.db('MCO');
