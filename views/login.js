@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             const data = await response.json();
 
-            if (data.status === 'ok') {
+            if (response.ok) {
                 alert('Logged in successfully');
                 window.location.href = `/`;
             } else {

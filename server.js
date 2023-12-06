@@ -3,7 +3,7 @@ const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient } = require('mongodb');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const mongoStore = require('connect-mongo');
@@ -89,14 +89,8 @@ routes.get('/login', (req, res) => {
 });
 
 routes.get('/logout', (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.log(err);
-      res.status(500).json({ status: 'error' });
-    } else {
-      res.redirect('/');
-    }
-  });
+  console.log(req.session);
+  res.redirect('/');
 });
 
 routes.get('/register', (req, res) => {
@@ -202,16 +196,16 @@ routes.post('/login', async (req, res) => {
 
       if (req.session.authenticated) {
         req.session.email = email;
-        console.log("Already authenticated!")
-        res.json({ status: 'ok', session: req.session, authenticatedAlready: true });
+        console.log(req.session)
+        res.status(201).json(req.session);
       } else {
         req.session.authenticated = true;
         req.session.email = email;
-        console.log("Not yet authenticated!")
-        res.json({ status: 'ok', session: req.session, authenticatedAlready: false });
+        console.log(req.session)
+        res.status(201).json(req.session);
       }
     } else {
-      res.json({ status: 'error', message: 'Invalid password' });
+      res.status(401).json({ status: 'error', message: 'Invalid password' });
     }
   } catch (e) {
     console.log(e);
