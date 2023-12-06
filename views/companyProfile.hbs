@@ -86,15 +86,39 @@
                             </div>
                             <div id="comments">
                                 <!-- Comments will be displayed here -->
-                                {{#each commentsList}}
-                                <div id="{{this.id}}">
-                                    <p><strong>Rating: </strong>{{this.rating}}</p>
-                                    <p>{{this.commentText}}</p>
-                                    <button class="editCommentButton" id="{{this.id}}">Edit</button>
-                                    <button class="deleteCommentButton" id="{{this.id}}">Delete</button>
-                                    <button class="helpfulButton" id="{{this.id}}">Helpful</button>
-                                    <button class="replyButton" id="{{this.id}}">Reply</button>
-                                </div>
+                                {{!-- List comments with null parent --}}
+                                {{#each combinedList}}
+                                    {{#if this.parent}}
+                                        {{!-- Do nothing --}}
+                                    {{else}}
+                                        <div id="{{this.id}}" class="comment">
+                                            <p><strong>Rating: </strong>{{this.rating}}</p>
+                                            <p>{{this.commentText}}</p>
+                                            <button class="editCommentButton" id="{{this.id}}">Edit</button>
+                                            <button class="deleteCommentButton" id="{{this.id}}">Delete</button>
+                                            <button class="helpfulButton" id="{{this.id}}">Helpful</button>
+                                            <button class="replyButton" id="{{this.id}}">Reply</button>
+                                            <div class="review-info">
+                                                <form id="editCommentForm">
+                                                    <label for="ratingInput">Rating:</label>
+                                                    <input type="number" id="ratingInput" name="rating" step="1" min="1.0" max="5.0" placeholder="Your Rating" />
+                                                    <textarea id="newComment" rows="4" placeholder="Write your comment here"></textarea>
+                                                    <input type="hidden" id="companyNameInput" name="companyName" value="{{restaurant.name}}" />
+                                                    <button id="editCommentButton">Edit Comment</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    {{/if}}
+                                {{/each}}
+                                {{!-- List comments with parent --}}
+                                {{#each combinedList}}
+                                    {{#if this.parent}}
+                                        <div id="{{this.id}}" class="comment" style="margin-left: 20px;">
+                                            <p>{{this.commentText}}</p>
+                                        </div>
+                                    {{else}}
+                                        {{!-- Do nothing --}}
+                                    {{/if}}
                                 {{/each}}
                             </div>
                         </div>

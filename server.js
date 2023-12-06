@@ -131,7 +131,12 @@ routes.get('/companyProfile', async (req, res) => {
   // Get comments with company name and with parent
   const repliesList = await comments.find({ company: name, parent: { $ne: null } }).toArray();
 
-  res.render('companyProfile', { layout: 'main', restaurant, commentsList, repliesList });
+  // Combine commentsList and repliesList
+  const combinedList = commentsList.concat(repliesList);
+
+  console.log(combinedList);
+
+  res.render('companyProfile', { layout: 'main', restaurant, commentsList, repliesList, combinedList });
 });
 
 routes.get('/search', async (req, res) => {
