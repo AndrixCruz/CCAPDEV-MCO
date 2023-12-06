@@ -138,6 +138,7 @@ routes.post('/register', async (req, res) => {
       gender,
       food,
       password: hashPassword,
+      company: "",
     });
     res.json({ status: 'ok' });
   } catch (e) {

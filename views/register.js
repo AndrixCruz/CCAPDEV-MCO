@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
             if (data.status === 'ok') {
                 alert('Registered successfully');
-                window.location.href = '/login.html';
+                window.location.href = '/login';
             } else {
                 alert('Something went wrong');
             }
