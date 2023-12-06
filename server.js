@@ -8,7 +8,6 @@ const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const mongoStore = require('connect-mongo');
 const exphbs = require('express-handlebars');
-const ObjectId = require('mongodb').ObjectId;
 
 const app = express();
 const PORT = 3000;
@@ -72,9 +71,32 @@ routes.get('/', async (req, res) => {
   }
 });
 
+// routes.get('/authenticated', (req, res) => {
+//   try {
+//     if (req.session.authenticated) {
+//       res.json({ status: 'ok', session: req.session });
+//     } else {
+//       res.json({ status: 'error' });
+//     }
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
+
 routes.get('/login', (req, res) => {
   res.render('login', {layout: 'main'});
 });
+
+// routes.get('/logout', (req, res) => {
+//   req.session.destroy((err) => {
+//     if (err) {
+//       console.log(err);
+//       res.status(500).json({ status: 'error' });
+//     } else {
+//       res.redirect('/');
+//     }
+//   });
+// });
 
 routes.get('/register', (req, res) => {
   res.render('register', {layout: 'main'});
@@ -165,11 +187,11 @@ routes.post('/login', async (req, res) => {
 
       if (req.session.authenticated) {
         req.session.email = email;
-        res.json({ status: 'ok' });
+        res.json({ status: 'ok', session: req.session });
       } else {
         req.session.authenticated = true;
         req.session.email = email;
-        res.json({ status: 'ok' });
+        res.json({ status: 'ok', session: req.session });
       }
     } else {
       res.json({ status: 'error', message: 'Invalid password' });
