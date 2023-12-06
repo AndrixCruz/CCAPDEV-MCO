@@ -66,7 +66,7 @@ app.get('/', async (req, res) => {
   const authenticated = req.session.authenticated;
   const email = req.session.email;
 
-  const profile = await db.collection('profiles').findOne({ email });
+  const loggedProfile = await db.collection('profiles').findOne({ email });
 
   const restaurantData = await restaurants.find({}).toArray();
 
@@ -78,7 +78,7 @@ app.get('/', async (req, res) => {
     }
   } else {
     try {
-      res.render('index', { layout: 'main', restaurantData, authenticated, profile });
+      res.render('index', { layout: 'main', restaurantData, authenticated, loggedProfile });
     } catch (e) {
       console.log(e);
     }
@@ -93,10 +93,24 @@ app.get('/user', async (req, res) => {
   const profiles = db.collection('profiles');
   const profile = await profiles.findOne({ username });
 
-  try {
-    res.render('user', { layout: 'main', profile });
-  } catch (e) {
-    console.log(e);
+  const authenticated = req.session.authenticated;
+  const email = req.session.email;
+
+  const loggedProfile = await profiles.findOne({ email });
+
+  if (!authenticated) {
+    try {
+      res.render('user', { layout: 'main', profile });
+    } catch (e) {
+      console.log(e);
+    }
+  } else {
+    try {
+      res.render('user', { layout: 'main', profile, authenticated, loggedProfile });
+    } catch (e) {
+      console.log(e);
+    }
+  
   }
 });
 
@@ -140,7 +154,17 @@ app.get('/companyProfile', async (req, res) => {
   // Get comments with company name and with parent
   const repliesList = await comments.find({ company: name, parent: { $ne: null } }).toArray();
 
-  res.render('companyProfile', { layout: 'main', restaurant, commentsList, repliesList });
+  const authenticated = req.session.authenticated;
+  const email = req.session.email;
+
+  const loggedProfile = await db.collection('profiles').findOne({ email });
+
+  if (!authenticated) {
+    res.render('companyProfile', { layout: 'main', restaurant, commentsList, repliesList });
+  } else {
+    res.render('companyProfile', { layout: 'main', restaurant, commentsList, repliesList, authenticated, loggedProfile });
+  
+  }
 });
 
 app.get('/search', async (req, res) => {
@@ -160,7 +184,16 @@ app.get('/search', async (req, res) => {
 
     const restaurantsList = await restaurants.find({ name: { $regex: searchQuery, $options: 'i' } }).toArray();
 
-    res.render('search', { layout: 'main', commentsList, restaurantsList });
+    const authenticated = req.session.authenticated;
+    const email = req.session.email;
+
+    const loggedProfile = await db.collection('profiles').findOne({ email });
+
+    if (!authenticated) {
+      res.render('search', { layout: 'main', commentsList, restaurantsList });
+    } else {
+      res.render('search', { layout: 'main', commentsList, restaurantsList, authenticated, loggedProfile });
+    }
   } catch (e) {
     console.log(e);
   }

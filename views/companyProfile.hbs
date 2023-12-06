@@ -23,7 +23,11 @@
     </style>
 </head>
 <body>
+    {{#if authenticated}}
+    {{> navbarLogged}}
+    {{else}}
     {{> navbar}}
+    {{/if}}
     
     <section class="establishments">
         <div class="container">
