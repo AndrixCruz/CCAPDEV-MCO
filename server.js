@@ -386,9 +386,14 @@ app.get('/getcomments', async (req, res) => {
 });
 
 app.post('/edituser', async (req, res) => {
-  const { AboutMe, age, gender, food, username } = req.body;
+  const { AboutMe, age, gender, food, username, loggedUsername } = req.body;
   const db = client.db('MCO');
   const profiles = db.collection('profiles');
+
+  if (username !== loggedUsername) {
+    res.json({ status: 'error', message: 'You are not the owner of this profile' });
+    return;
+  }
 
   try {
     await profiles.updateOne(
@@ -466,6 +471,12 @@ app.post('/deletecomment', async (req, res) => {
 
 app.post('/helpfulcomment', async (req, res) => {
   const commentId = req.body.buttonId;
+  const username = req.body.username;
+
+  if (username === '') {
+    res.json({ status: 'error', message: 'Please login to mark comment as helpful' });
+    return;
+  }
 
   const db = client.db('MCO');
   const comments = db.collection('comments');

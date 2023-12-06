@@ -41,6 +41,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (buttonId) {
         // Check if class is equal to editCommentButton
         if (clickedButton.classList.contains('helpfulButton')) {
+          const username = document.getElementById('usernameInput').value;
+
           const response = await fetch('/helpfulcomment', {
             method: 'POST',
             headers: {
@@ -48,6 +50,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             },
             body: JSON.stringify({
               buttonId,
+              username,
             })
           });
 
@@ -57,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             alert('Review marked as helpful');
             window.location.reload();
           } else {
-            console.log('Error');
+            alert(data.message);
           }
         } else if (clickedButton.classList.contains('deleteCommentButton')) {
           const username = document.getElementById('usernameInput').value;

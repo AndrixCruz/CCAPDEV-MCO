@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let gender = document.getElementById("newGender").value;
         let food = document.getElementById("newFood").value;
         let username = document.getElementById("newUsername").innerHTML;
+        const loggedUsername = document.getElementById("usernameInput").value;
 
         if (AboutMe === "") {
             AboutMe = document.getElementById("oldDescription").value;
@@ -55,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('Profile updated!');
             window.location.reload();
         } else {
-            console.log('Error');
+            alert(data.message);
         }
     });
 });
