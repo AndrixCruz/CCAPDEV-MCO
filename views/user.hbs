@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Reviews - Reviews</title>
     <link rel="stylesheet" href="design.css">
+    <script src="user.js"></script>
     <style>
         .review-info {
             display: none;
@@ -19,10 +20,10 @@
                 <div class="nav-links">
                     <div id="gitna">
                         <div id="logo">Restaurant Reviews</div>
-                        <div id="resto" class="currentPage"><a href="profile.html">•Home•</a></div>
-                        <div id="login"><a href="logout.html">•Logout•</a></div>
-                        <div id="profilePic"><a href="user.html"></a></div>
-                        <div id="info"><a href="user.html" id="usernameLink" style="padding-left: 10px;"> </a></div>
+                        <div id="resto" class="currentPage"><a href="/">•Home•</a></div>
+                        <div id="login"><a href="/logout">•Logout•</a></div>
+                        <div id="profilePic"><a href="/user"></a></div>
+                        <div id="info"><a href="/user" id="usernameLink" style="padding-left: 10px;"> </a></div>
                     </div>
                 </div>
             </div>
@@ -38,12 +39,14 @@
                 <div id="profilePic" style="background-size: 292px 158px; background-position: 219px 316px; width: 150px; height: 150px;"></div>
                 <div class="review-toggle">
                     <div id="header">
-                        <h3 id="username"></h3>
+                        <h3 id="username">{{profile.username}}</h3>
                         <button id="editProfileButton" class="btn-edit-profile">Edit</button>
                     </div>
                     <div id="desc">
-                        <p style="padding-bottom: 10px;" id="userDescription"></p>
-                        <ul style="align-items:flex-start;" id="userDetailsList"></ul>
+                        <p style="padding-bottom: 10px;" id="userDescription">{{profile.AboutMe}}</p>
+                        <ul style="align-items:flex-start;" id="userDetailsList">{{profile.age}}</ul>
+                        <ul style="align-items:flex-start;" id="userDetailsList">{{profile.gender}}</ul>
+                        <ul style="align-items:flex-start;" id="userDetailsList">{{profile.food}}</ul>
                     </div>
                 </div>
             </div>
@@ -51,79 +54,15 @@
             <!-- Edit Profile Form -->
             <form id="editProfileForm" style="display: none;">
                 <label for="newDescription">Description:</label>
-                <textarea id="newDescription" name="newDescription"></textarea>
+                <textarea id="newDescription" name="newDescription" placeholder="{{profile.AboutMe}}"></textarea>
                 <label for="newDetails">Other Info:</label>
-                <textarea id="newDetails" name="newDetails"></textarea>
+                <textarea id="newAge" name="newAge" placeholder="{{profile.age}}"></textarea>
+                <textarea id="newGender" name="newGender" placeholder="{{profile.gender}}"></textarea>
+                <textarea id="newFood" name="newFood" placeholder="{{profile.food}}"></textarea>
                 <button type="button" id="saveProfileButton" class="btn-edit-profile">Save</button>
                 <button type="button" id="cancelEditButton" class="btn-edit-profile">Cancel</button>
             </form>
         </div>
     </section>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Retrieve user information from localStorage
-            const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
-
-            // Populate user profile with stored data
-            if (storedUserInfo) {
-                document.getElementById("username").textContent = storedUserInfo.username || "";
-                document.getElementById("usernameLink").textContent = storedUserInfo.username || "";
-                document.getElementById("userDescription").textContent = storedUserInfo.description || "";
-                const userDetailsList = document.getElementById("userDetailsList");
-                
-                if (storedUserInfo.details && Array.isArray(storedUserInfo.details)) {
-                    storedUserInfo.details.forEach(detail => {
-                        const listItem = document.createElement("li");
-                        listItem.textContent = detail;
-                        userDetailsList.appendChild(listItem);
-                    });
-                }
-            }
-
-            // Edit Profile functionality
-            const editProfileForm = document.getElementById("editProfileForm");
-            const editProfileButton = document.getElementById("editProfileButton");
-            const saveProfileButton = document.getElementById("saveProfileButton");
-            const cancelEditButton = document.getElementById("cancelEditButton");
-
-            editProfileButton.addEventListener("click", function () {
-                editProfileForm.style.display = "block";
-                document.getElementById("desc").style.display = "none";
-            });
-
-            cancelEditButton.addEventListener("click", function () {
-                editProfileForm.style.display = "none";
-                document.getElementById("desc").style.display = "block";
-            });
-
-            saveProfileButton.addEventListener("click", function () {
-                const newDescription = document.getElementById("newDescription").value;
-                const newDetails = document.getElementById("newDetails").value;
-
-                // Update user information
-                storedUserInfo.description = newDescription;
-                storedUserInfo.details = newDetails.split('\n').map(detail => detail.trim());
-
-                // Save updated user information to localStorage
-                localStorage.setItem("userInfo", JSON.stringify(storedUserInfo));
-
-                // Update displayed information
-                document.getElementById("userDescription").textContent = newDescription;
-                const userDetailsList = document.getElementById("userDetailsList");
-                userDetailsList.innerHTML = "";
-
-                storedUserInfo.details.forEach(detail => {
-                    const listItem = document.createElement("li");
-                    listItem.textContent = detail;
-                    userDetailsList.appendChild(listItem);
-                });
-
-                // Hide the edit form and show the user details
-                editProfileForm.style.display = "none";
-                document.getElementById("desc").style.display = "block";
-            });
-        });
-    </script>
 </body>
 </html>

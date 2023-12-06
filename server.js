@@ -71,6 +71,18 @@ routes.get('/', async (req, res) => {
   }
 });
 
+routes.get('/user', async (req, res) => {
+  const db = client.db('MCO');
+  const profiles = db.collection('profiles');
+  const profile = await profiles.findOne({ email: "machew@gmail.com" });
+
+  try {
+    res.render('user', { layout: 'main', profile });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 // routes.get('/authenticated', (req, res) => {
 //   try {
 //     if (req.session.authenticated) {
