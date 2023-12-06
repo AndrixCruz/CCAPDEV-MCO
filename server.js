@@ -35,6 +35,7 @@ app.use(session({
   saveUninitialized: true,
   store: mongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
+    dbName: 'MCO',
     ttl: 14 * 24 * 60 * 60,
   }),
 }));
@@ -83,32 +84,32 @@ routes.get('/user', async (req, res) => {
   }
 });
 
-// routes.get('/authenticated', (req, res) => {
-//   try {
-//     if (req.session.authenticated) {
-//       res.json({ status: 'ok', session: req.session });
-//     } else {
-//       res.json({ status: 'error' });
-//     }
-//   } catch (e) {
-//     console.log(e);
-//   }
-// });
+routes.get('/authenticated', (req, res) => {
+  try {
+    if (req.session.authenticated) {
+      res.json({ status: 'ok', session: req.session });
+    } else {
+      res.json({ status: 'error' });
+    }
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 routes.get('/login', (req, res) => {
   res.render('login', {layout: 'main'});
 });
 
-// routes.get('/logout', (req, res) => {
-//   req.session.destroy((err) => {
-//     if (err) {
-//       console.log(err);
-//       res.status(500).json({ status: 'error' });
-//     } else {
-//       res.redirect('/');
-//     }
-//   });
-// });
+routes.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ status: 'error' });
+    } else {
+      res.redirect('/');
+    }
+  });
+});
 
 routes.get('/register', (req, res) => {
   res.render('register', {layout: 'main'});
@@ -143,7 +144,8 @@ routes.get('/search', async (req, res) => {
     const comments = db.collection('comments');
     const restaurants = db.collection('restaurants');
 
-    const commentsList = await comments.find({ commentText: { $regex: searchQuery, $options: 'i' } }).toArray();
+    const commentsList = await comments.find({ commentText: { $regex: searchQuery, $options: 'i' }, parent: null }).toArray();
+
     const restaurantsList = await restaurants.find({ name: { $regex: searchQuery, $options: 'i' } }).toArray();
 
     res.render('search', { layout: 'main', commentsList, restaurantsList });
