@@ -126,9 +126,12 @@ routes.get('/companyProfile', async (req, res) => {
   const restaurant = await restaurants.findOne({ name });
 
   const comments = db.collection('comments');
-  const commentsList = await comments.find({ company: name }).toArray();
+  // Get comments with company name and without parent
+  const commentsList = await comments.find({ company: name, parent: null }).toArray();
+  // Get comments with company name and with parent
+  const repliesList = await comments.find({ company: name, parent: { $ne: null } }).toArray();
 
-  res.render('companyProfile', { layout: 'main', restaurant, commentsList });
+  res.render('companyProfile', { layout: 'main', restaurant, commentsList, repliesList });
 });
 
 routes.get('/search', async (req, res) => {
@@ -242,6 +245,7 @@ routes.post('/addcomment', async (req, res) => {
 routes.post('/ownercomment', async (req, res) => {
   const commentId = req.body.buttonId;
   const commentText = req.body.ownerReply;
+  const company = req.body.company;
 
   const db = client.db('MCO');
   const comments = db.collection('comments');
@@ -257,7 +261,7 @@ routes.post('/ownercomment', async (req, res) => {
       id,
       rating: null,
       commentText,
-      company: null,
+      company,
       helpful: null,
       parent: parentId,
     });

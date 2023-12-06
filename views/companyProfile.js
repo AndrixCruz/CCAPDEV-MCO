@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           }
         } else if (clickedButton.classList.contains("replyButton")) {
           const ownerReply = window.prompt("Reply to this comment");
+          const company = document.getElementById('companyNameInput').value;
 
           const response = await fetch('/ownercomment', {
             method: 'POST',
@@ -107,6 +108,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             body: JSON.stringify({
               buttonId,
               ownerReply,
+              company,
             })
           });
 
