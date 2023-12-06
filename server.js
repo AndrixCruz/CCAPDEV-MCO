@@ -84,18 +84,6 @@ routes.get('/user', async (req, res) => {
   }
 });
 
-routes.get('/authenticated', (req, res) => {
-  try {
-    if (req.session.authenticated) {
-      res.json({ status: 'ok', session: req.session });
-    } else {
-      res.json({ status: 'error' });
-    }
-  } catch (e) {
-    console.log(e);
-  }
-});
-
 routes.get('/login', (req, res) => {
   res.render('login', {layout: 'main'});
 });
@@ -198,17 +186,17 @@ routes.post('/login', async (req, res) => {
     const result = await bcrypt.compare(password, profile.password);
 
     if (result) {
-      if (!req.session) {
-        req.session = {};
-      }
+      req.session = {};
 
       if (req.session.authenticated) {
         req.session.email = email;
-        res.json({ status: 'ok', session: req.session });
+        console.log("Already authenticated!")
+        res.json({ status: 'ok', session: req.session, authenticatedAlready: true });
       } else {
         req.session.authenticated = true;
         req.session.email = email;
-        res.json({ status: 'ok', session: req.session });
+        console.log("Not yet authenticated!")
+        res.json({ status: 'ok', session: req.session, authenticatedAlready: false });
       }
     } else {
       res.json({ status: 'error', message: 'Invalid password' });
