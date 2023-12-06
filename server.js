@@ -93,6 +93,9 @@ app.get('/user', async (req, res) => {
   const profiles = db.collection('profiles');
   const profile = await profiles.findOne({ username });
 
+  const comments = db.collection('comments');
+  const commentsList = await comments.find({ username, parent: null }).toArray();
+
   const authenticated = req.session.authenticated;
   const email = req.session.email;
 
@@ -100,13 +103,13 @@ app.get('/user', async (req, res) => {
 
   if (!authenticated) {
     try {
-      res.render('user', { layout: 'main', profile });
+      res.render('user', { layout: 'main', profile, commentsList });
     } catch (e) {
       console.log(e);
     }
   } else {
     try {
-      res.render('user', { layout: 'main', profile, authenticated, loggedProfile });
+      res.render('user', { layout: 'main', profile, authenticated, loggedProfile, commentsList });
     } catch (e) {
       console.log(e);
     }

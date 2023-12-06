@@ -57,6 +57,24 @@
                 <button type="button" id="cancelEditButton" class="btn-edit-profile">Cancel</button>
             </form>
         </div>
+        <div class="container">
+            <div id="title">
+                <h2>Comments</h2>
+            </div>
+            <div class="profileCard">
+                <div id="Review">
+                    <div id="commentsContainer">
+                        {{#each commentsList}}
+                        <div class="comment">
+                            <h2>{{this.commentText}}</h2>
+                            <p>Rating: {{this.rating}}</p>
+                            <p>Restaurant: {{this.company}}</p>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </body>
 </html>
