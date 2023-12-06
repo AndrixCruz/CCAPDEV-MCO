@@ -3,7 +3,7 @@ const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient, ObjectId } = require('mongodb');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const mongoStore = require('connect-mongo');
@@ -215,7 +215,7 @@ routes.post('/login', async (req, res) => {
 });
 
 routes.post('/addcomment', async (req, res) => {
-  const { rating, comment, company } = req.body;
+  const { rating, comment, company, parent } = req.body;
   const db = client.db('MCO');
   const comments = db.collection('comments');
 
@@ -230,11 +230,40 @@ routes.post('/addcomment', async (req, res) => {
       commentText: comment,
       company,
       helpful: null,
+      parent: parent ? new ObjectId(parent) : parent,
     });
     res.json({ status: 'ok' });
   } catch (e) {
     console.log(e);
     res.json({ status: 'error' });
+  }
+});
+
+routes.post('/ownercomment', async (req, res) => {
+  const commentId = req.body.buttonId;
+  const commentText = req.body.ownerReply;
+
+  const db = client.db('MCO');
+  const comments = db.collection('comments');
+
+  const highestCommentId = await comments.find().sort({ id: -1 }).limit(1).toArray();
+  const id = highestCommentId.length === 0 ? 1 : highestCommentId[0].id + 1;
+
+  const comment = await comments.findOne({ id: parseInt(commentId) });
+  const parentId = comment._id;
+
+  try {
+    await comments.insertOne({
+      id,
+      rating: null,
+      commentText,
+      company: null,
+      helpful: null,
+      parent: parentId,
+    });
+    res.json({ status: 'ok' });
+  } catch (e) {
+    console.log(e);
   }
 });
 

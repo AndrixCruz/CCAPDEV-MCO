@@ -96,6 +96,27 @@ document.addEventListener("DOMContentLoaded", async function () {
           } else {
             console.log('Error');
           }
+        } else if (clickedButton.classList.contains("replyButton")) {
+          const ownerReply = window.prompt("Reply to this comment");
+
+          const response = await fetch('/ownercomment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              buttonId,
+              ownerReply,
+            })
+          });
+
+          const data = await response.json();
+
+          if (data.status === 'ok') {
+            window.location.reload();
+          } else {
+            console.log('Error');
+          }
         }
       }
     }
