@@ -251,8 +251,26 @@ routes.get('/getcomments', async (req, res) => {
   }
 });
 
-routes.post('/editpost', async (req, res) => {
+routes.post('/edituser', async (req, res) => {
+  const { AboutMe, age, gender, food, username } = req.body;
+  const db = client.db('MCO');
+  const profiles = db.collection('profiles');
 
+  try {
+    await profiles.updateOne(
+      { username },
+      { $set: {
+        AboutMe,
+        age,
+        gender,
+        food,
+      }
+    });
+
+    res.json({ status: 'ok' });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 routes.post('/editcomment', async (req, res) => {

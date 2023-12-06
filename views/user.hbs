@@ -33,20 +33,20 @@
 
     <section class="establishments">
         <div class="container">
-            <div id="title"><h2> User Profile</h2></div>
+            <div id="title"><h2>User Profile</h2></div>
             
             <div class="profileCard">
                 <div id="profilePic" style="background-size: 292px 158px; background-position: 219px 316px; width: 150px; height: 150px;"></div>
                 <div class="review-toggle">
                     <div id="header">
-                        <h3 id="username">{{profile.username}}</h3>
+                        <h3 id="userUsername">{{profile.username}}</h3>
                         <button id="editProfileButton" class="btn-edit-profile">Edit</button>
                     </div>
                     <div id="desc">
                         <p style="padding-bottom: 10px;" id="userDescription">{{profile.AboutMe}}</p>
-                        <ul style="align-items:flex-start;" id="userDetailsList">{{profile.age}}</ul>
-                        <ul style="align-items:flex-start;" id="userDetailsList">{{profile.gender}}</ul>
-                        <ul style="align-items:flex-start;" id="userDetailsList">{{profile.food}}</ul>
+                        <ul style="align-items:flex-start;" id="userDetailsAge">Age: {{profile.age}}</ul>
+                        <ul style="align-items:flex-start;" id="userDetailsGender">Gender: {{profile.gender}}</ul>
+                        <ul style="align-items:flex-start;" id="userDetailsFood">Favorite food: {{profile.food}}</ul>
                     </div>
                 </div>
             </div>
@@ -59,6 +59,7 @@
                 <textarea id="newAge" name="newAge" placeholder="{{profile.age}}"></textarea>
                 <textarea id="newGender" name="newGender" placeholder="{{profile.gender}}"></textarea>
                 <textarea id="newFood" name="newFood" placeholder="{{profile.food}}"></textarea>
+                <textarea id="newUsername" name="newUsername" style="display: none;">{{profile.username}}</textarea>
                 <button type="button" id="saveProfileButton" class="btn-edit-profile">Save</button>
                 <button type="button" id="cancelEditButton" class="btn-edit-profile">Cancel</button>
             </form>
