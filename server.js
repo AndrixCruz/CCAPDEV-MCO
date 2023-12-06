@@ -64,18 +64,35 @@ app.get('/', async (req, res) => {
   const db = client.db('MCO');
   const restaurants = db.collection('restaurants');
 
-  try {
-    const restaurantData = await restaurants.find({}).toArray();
-    res.render('index', { layout: 'main', restaurantData });
-  } catch (e) {
-    console.log(e);
+  const authenticated = req.session.authenticated;
+  const email = req.session.email;
+
+  const profile = await db.collection('profiles').findOne({ email });
+
+  const restaurantData = await restaurants.find({}).toArray();
+
+  if (!authenticated) {
+    try {
+      res.render('index', { layout: 'main', restaurantData });
+    } catch (e) {
+      console.log(e);
+    }
+  } else {
+    try {
+      res.render('index', { layout: 'main', restaurantData, authenticated, profile });
+    } catch (e) {
+      console.log(e);
+    }
   }
 });
 
 app.get('/user', async (req, res) => {
+  const urlParams = new URLSearchParams(req.query);
+  const username = urlParams.get('name');
+
   const db = client.db('MCO');
   const profiles = db.collection('profiles');
-  const profile = await profiles.findOne({ email: "machew@gmail.com" });
+  const profile = await profiles.findOne({ username });
 
   try {
     res.render('user', { layout: 'main', profile });

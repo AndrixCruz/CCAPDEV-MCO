@@ -25,21 +25,12 @@
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="container">
-                <div class="nav-links">
-                    <div id="gitna">
-                        <div id="logo">Restaurant Reviews</div>
-                        <div id="resto" class="currentPage"><a href="/">•Home•</a></div>
-                        <div id="login"><a href="/logout">•Logout•</a></div>
-                        <div id="profilePic"><a href="/user"></a></div>
-                        <div id="info"><a href="/user" id="usernameLink" style="padding-left: 10px;"></a></div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+
+    {{#if authenticated}}
+    {{> navbarLogged}}
+    {{else}}
+    {{> navbar}}
+    {{/if}}
 
     <section class="hero">
         <div class="container">
