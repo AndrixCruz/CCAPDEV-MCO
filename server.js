@@ -89,16 +89,17 @@ routes.get('/login', (req, res) => {
 });
 
 routes.get('/logout', (req, res) => {
-  console.log(req.session);
+  if (!req.session) {
+    console.log('No session');
+  } else {
+    console.log('Session exists');
+  }
+
   res.redirect('/');
 });
 
 routes.get('/register', (req, res) => {
   res.render('register', {layout: 'main'});
-});
-
-routes.get('/user', (req, res) => {
-  res.render('user', {layout: 'main'});
 });
 
 routes.get('/companyProfile', async (req, res) => {
@@ -187,6 +188,12 @@ routes.post('/login', async (req, res) => {
 
   try {
     const profile = await profiles.findOne({ email });
+
+    if (!profile) {
+      res.status(401).json({ status: 'error', message: 'Invalid email' });
+      return;
+    }
+
     const result = await bcrypt.compare(password, profile.password);
 
     if (result) {
@@ -196,12 +203,12 @@ routes.post('/login', async (req, res) => {
 
       if (req.session.authenticated) {
         req.session.email = email;
-        console.log(req.session)
+        console.log(req.session);
         res.status(201).json(req.session);
       } else {
         req.session.authenticated = true;
         req.session.email = email;
-        console.log(req.session)
+        console.log(req.session);
         res.status(201).json(req.session);
       }
     } else {
