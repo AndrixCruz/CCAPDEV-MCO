@@ -286,6 +286,11 @@ app.post('/addcomment', async (req, res) => {
   const db = client.db('MCO');
   const comments = db.collection('comments');
 
+  if (username === '') {
+    res.json({ status: 'error', message: 'Please login to comment' });
+    return;
+  }
+
   if (rating === '' && comment === '') {
     res.json({ status: 'error', message: 'Please fill out all the fields' });
     return;
@@ -326,12 +331,22 @@ app.post('/ownercomment', async (req, res) => {
   const commentId = req.body.buttonId;
   const commentText = req.body.ownerReply;
   const company = req.body.company;
+  const username = req.body.username;
 
   const db = client.db('MCO');
   const comments = db.collection('comments');
 
   if (commentText === '') {
     res.json({ status: 'error', message: 'Please enter a comment' });
+    return;
+  }
+
+  // Check if username is found in users with company name
+  const profiles = db.collection('profiles');
+  const profile = await profiles.findOne({ username, company });
+
+  if (!profile) {
+    res.json({ status: 'error', message: 'You are not the owner of this company' });
     return;
   }
 
@@ -348,6 +363,7 @@ app.post('/ownercomment', async (req, res) => {
       commentText,
       company,
       helpful: null,
+      username,
       parent: parentId,
     });
     res.json({ status: 'ok' });
@@ -394,6 +410,7 @@ app.post('/edituser', async (req, res) => {
 app.post('/editcomment', async (req, res) => {
   const commentId = req.body.buttonId;
   const commentText = req.body.editedComment;
+  const username = req.body.username;
 
   if (commentText === '') {
     res.json({ status: 'error', message: 'Please enter a comment' });
@@ -402,6 +419,15 @@ app.post('/editcomment', async (req, res) => {
 
   const db = client.db('MCO');
   const comments = db.collection('comments');
+
+  // Check if comment belongs to user
+  const comment = await comments.findOne({ id: parseInt(commentId) });
+  const commentUsername = comment.username;
+
+  if (commentUsername !== username) {
+    res.json({ status: 'error', message: 'You are not the owner of this comment' });
+    return;
+  }
 
   try {
     await comments.updateOne(
@@ -416,9 +442,19 @@ app.post('/editcomment', async (req, res) => {
 
 app.post('/deletecomment', async (req, res) => {
   const commentId = req.body.buttonId;
+  const username = req.body.username;
 
   const db = client.db('MCO');
   const comments = db.collection('comments');
+
+  // Check if comment belongs to user
+  const comment = await comments.findOne({ id: parseInt(commentId) });
+  const commentUsername = comment.username;
+
+  if (commentUsername !== username) {
+    res.json({ status: 'error', message: 'You are not the owner of this comment' });
+    return;
+  }
 
   try {
     await comments.deleteOne({ id: parseInt(commentId) });

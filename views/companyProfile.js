@@ -60,6 +60,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             console.log('Error');
           }
         } else if (clickedButton.classList.contains('deleteCommentButton')) {
+          const username = document.getElementById('usernameInput').value;
+
           const response = await fetch('/deletecomment', {
             method: 'POST',
             headers: {
@@ -67,6 +69,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             },
             body: JSON.stringify({
               buttonId,
+              username,
             })
           });
   
@@ -75,10 +78,11 @@ document.addEventListener("DOMContentLoaded", async function () {
           if (data.status === 'ok') {
             window.location.reload();
           } else {
-            console.log('Error');
+            alert(data.message);
           }
         } else if (clickedButton.classList.contains("editCommentButton")) {
           const editedComment = window.prompt("Edit your comment");
+          const username = document.getElementById('usernameInput').value;
 
           const response = await fetch('/editcomment', {
             method: 'POST',
@@ -88,6 +92,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             body: JSON.stringify({
               buttonId,
               editedComment,
+              username,
             })
           });
 
@@ -101,6 +106,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         } else if (clickedButton.classList.contains("replyButton")) {
           const ownerReply = window.prompt("Reply to this comment");
           const company = document.getElementById('companyNameInput').value;
+          const username = document.getElementById('usernameInput').value;
 
           const response = await fetch('/ownercomment', {
             method: 'POST',
@@ -111,6 +117,7 @@ document.addEventListener("DOMContentLoaded", async function () {
               buttonId,
               ownerReply,
               company,
+              username,
             })
           });
 
