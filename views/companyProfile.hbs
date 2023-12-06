@@ -70,6 +70,7 @@
                                     <input type="number" id="ratingInput" name="rating" step="1" min="1.0" max="5.0" placeholder="Your Rating" />
                                     <textarea id="newComment" rows="4" placeholder="Write your comment here"></textarea>
                                     <input type="hidden" id="companyNameInput" name="companyName" value="{{restaurant.name}}" />
+                                    <input type="hidden" id="usernameInput" name="username" value="{{loggedProfile.username}}" />
                                     <button id="addCommentButton">Add Comment</button>
                                 </form>
                             </div>
@@ -80,6 +81,7 @@
                                         <div class="comment" id="commentLeft">
                                             <h2>Review #{{this.id}}</h2>
                                             <h3>Rating: {{this.rating}} / 5</h3>
+                                            <h4>By <a href="/user?name={{this.username}}">{{this.username}}</a></h4>
                                             <p>{{this.commentText}}</p>
                                             <button class="editCommentButton" id="{{this.id}}">Edit</button>
                                             <button class="deleteCommentButton" id="{{this.id}}">Delete</button>
@@ -92,6 +94,7 @@
                                     {{#each repliesList}}
                                         <div class="comment" id="commentRight">
                                             <h2>Reply to Review#{{this.parent}}</h2>
+                                            <h4>By {{this.username}}</h4>
                                             <p>{{this.commentText}}</p>
                                         </div>
                                     {{/each}}

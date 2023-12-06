@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const rating = document.getElementById('ratingInput').value;
     const comment = document.getElementById('newComment').value;
     const company = document.getElementById('companyNameInput').value;
+    const username = document.getElementById('usernameInput').value;
 
     const response = await fetch('/addcomment', {
       method: 'POST',
@@ -16,7 +17,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       body: JSON.stringify({
         rating,
         comment,
-        company
+        company,
+        username,
       })
     });
 

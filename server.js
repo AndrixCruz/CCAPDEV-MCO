@@ -279,7 +279,7 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/addcomment', async (req, res) => {
-  const { rating, comment, company, parent } = req.body;
+  const { rating, comment, company, username, parent } = req.body;
   const db = client.db('MCO');
   const comments = db.collection('comments');
 
@@ -309,6 +309,7 @@ app.post('/addcomment', async (req, res) => {
       commentText: comment,
       company,
       helpful: null,
+      username,
       parent: parent === 'null' ? null : parent,
     });
     res.json({ status: 'ok' });
