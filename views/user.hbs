@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Reviews - Reviews</title>
+    <link rel="stylesheet" href="design.css">
+    <script src="user.js"></script>
+    <style>
+        .review-info {
+            display: none;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    {{#if authenticated}}
+    {{> navbarLogged}}
+    {{else}}
+    {{> navbar}}
+    {{/if}}
+
+    <section class="establishments">
+        <div class="container">
+            <div id="title"><h2>User Profile</h2></div>
+            
+            <div class="profileCard">
+                <div id="profilePic" style="background-size: 292px 158px; background-position: 219px 316px; width: 150px; height: 150px;"></div>
+                <div class="review-toggle">
+                    <div id="header">
+                        <h3 id="userUsername">{{profile.username}}</h3>
+                        <button id="editProfileButton" class="btn-edit-profile">Edit</button>
+                    </div>
+                    <div id="desc">
+                        <p style="padding-bottom: 10px;" id="userDescription">{{profile.AboutMe}}</p>
+                        <ul style="align-items:flex-start;" id="userDetailsAge">Age: {{profile.age}}</ul>
+                        <ul style="align-items:flex-start;" id="userDetailsGender">Gender: {{profile.gender}}</ul>
+                        <ul style="align-items:flex-start;" id="userDetailsFood">Favorite food: {{profile.food}}</ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Profile Form -->
+            <form id="editProfileForm" style="display: none;">
+                <label for="newDescription">Description:</label>
+                <textarea id="newDescription" name="newDescription" placeholder="{{profile.AboutMe}}"></textarea>
+                <label for="newDetails">Other Info:</label>
+                <textarea id="newAge" name="newAge" placeholder="{{profile.age}}"></textarea>
+                <textarea id="newGender" name="newGender" placeholder="{{profile.gender}}"></textarea>
+                <textarea id="newFood" name="newFood" placeholder="{{profile.food}}"></textarea>
+                <textarea id="newUsername" name="newUsername" style="display: none;">{{profile.username}}</textarea>
+                <textarea id="oldDescription" name="oldDescription" style="display: none;">{{profile.AboutMe}}</textarea>
+                <textarea id="oldAge" name="oldAge" style="display: none;">{{profile.age}}</textarea>
+                <textarea id="oldGender" name="oldGender" style="display: none;">{{profile.gender}}</textarea>
+                <textarea id="oldFood" name="oldFood" style="display: none;">{{profile.food}}</textarea>
+                <textarea id="usernameInput" name="usernameInput" style="display: none;">{{loggedProfile.username}}</textarea>
+                <button type="button" id="saveProfileButton" class="btn-edit-profile">Save</button>
+                <button type="button" id="cancelEditButton" class="btn-edit-profile">Cancel</button>
+            </form>
+        </div>
+        <div class="container">
+            <div id="title">
+                <h2>Comments</h2>
+            </div>
+            <div class="profileCard">
+                <div id="Review">
+                    <div id="commentsContainer">
+                        {{#each commentsList}}
+                        <div class="comment">
+                            <h2>{{this.commentText}}</h2>
+                            <p>Rating: {{this.rating}}</p>
+                            <p>Restaurant: {{this.company}}</p>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

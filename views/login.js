@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (email === '' || password === '') {
             return;
         }
-        console.log(email, password);
+        
         try {
-            const response = await fetch(`/login?email=${email}&password=${password}`, {
+            const response = await fetch(`/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
@@ -20,14 +20,11 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             const data = await response.json();
 
-            if (data.status === 'ok') {
+            if (response.ok) {
                 alert('Logged in successfully');
-                // Save the username to a variable
-                const loggedInUsername = data.username || "Guest";
-                // Redirect to profile.html with the username as a parameter
-                window.location.href = `/profile.html?username=${loggedInUsername}`;
+                window.location.href = `/`;
             } else {
-                alert('Something went wrong');
+                alert(data.message);
             }
         } catch (err) {
             console.log(err);

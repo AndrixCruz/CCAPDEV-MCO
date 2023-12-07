@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Reviews - Reviews</title>
+    <link rel="stylesheet" href="design.css">
+    <script src="index.js"></script>
+    <style>
+        .review-info {
+            display: none;
+            padding: 10px;
+        }
+        .establishment-card {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .establishment-card img {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    {{#if authenticated}}
+    {{> navbarLogged}}
+    {{else}}
+    {{> navbar}}
+    {{/if}}
+
+    <section class="hero">
+        <div class="container">
+            <h2>Welcome to Restaurant Reviews</h2>
+            <p>Discover the best restaurants in your area and share your dining experiences with others.</p>
+            <textarea id="search" name="search" rows="1" cols="50" placeholder="Search for restaurants..."></textarea>
+    </section>
+
+    <section class="featured-restaurants">
+        <div class="container">
+            <div id="title"><h2>List of Profiles</h2></div>
+
+            {{#each restaurantData}}
+
+            <div class="restaurant-card" style="justify-content: center;">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <img src="{{this.image}}" alt="{{this.name}}" style="margin-bottom: 10px;">
+                    <h3 style="text-align: center; margin-bottom: 10px;">{{this.name}}</h3>
+                    <div class="review-toggle">
+                        {{!-- button that redirect to companyprofile based on name --}}
+                        <button class="btn" onclick="window.location.href='/companyProfile?name={{this.name}}'">View Profile</button>
+                    </div>
+                </div>
+            </div>
+
+            {{/each}}
+        </div>
+    </section>
+</body>
+</html>

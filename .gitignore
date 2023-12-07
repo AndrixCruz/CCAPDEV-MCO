@@ -1,0 +1,22 @@
+# Logs
+logs
+*.log
+
+# Node.js
+node_modules/
+npm-debug.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Mac OS files
+.DS_Store
+
+# Compiled output
+dist/
+
+# Other build and package management files
+package-lock.json

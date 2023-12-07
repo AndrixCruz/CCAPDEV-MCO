@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('password').value;
         
         if (username === '' || email === '' || password === '' || AboutMe === '' || age === ''|| gender === ''|| food === '') {
+            alert('Please fill out all fields');
             return;
         }
         console.log(username, email, password);
@@ -28,9 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
             if (data.status === 'ok') {
                 alert('Registered successfully');
-                window.location.href = '/login.html';
+                window.location.href = '/login';
             } else {
-                alert('Something went wrong');
+                alert(data.message);
             }
         } catch (err) {
             console.log(err);

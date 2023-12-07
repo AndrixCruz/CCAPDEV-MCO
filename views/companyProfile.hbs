@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Reviews - Reviews</title>
+    <link rel="stylesheet" href="design.css">
+    <script src="companyProfile.js"></script>  
+    <style>
+        .review-info {
+            display: none;
+            padding: 10px;
+        }
+
+        .comment {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .comment p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    {{#if authenticated}}
+    {{> navbarLogged}}
+    {{else}}
+    {{> navbar}}
+    {{/if}}
+    
+    <section class="establishments">
+        <div class="container">
+            <span style="padding-left: 50px;">
+                <div id="title"><h2 id="companyName">{{restaurant.name}}</h2></div>
+            </span>
+            <div class="profileCard">
+                <div id="kalsada" class="sprite" style="padding-right: 20px">
+                    <img src="{{restaurant.image}}" alt="Company Logo" id="companyLogo" class="sprite">
+                </div>
+                <div id="padding" class="review-toggle">
+                    <div id="header">
+                        <h3><span style="color:black" id="companyNameLink"></span></a></h3>
+                    </div>
+                    <div id="desc">
+                        <p style="padding-bottom: 10px;" id="companyDescription">{{restaurant.description}}</p>
+                        <ul style="align-items:flex-start;">
+                            <li><p>Rating: {{restaurant.rating}}</p></li>
+                            <li><p>Location: {{restaurant.location}}</a></p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="establishments">
+        <div class="container">
+            <div id="title">
+                <h2>Comments</h2>
+            </div>
+            <div class="profileCard">
+                <div id="Review">
+                    <div class="user-review-section">
+                        <div id="commentSection">
+                            <div id="commentForm">
+                                <h3>Add a Comment</h3>
+                                <form id="commentSubmitForm">
+                                    <label for="ratingInput">Rating:</label>
+                                    <input type="number" id="ratingInput" name="rating" step="1" min="1.0" max="5.0" placeholder="Your Rating" />
+                                    <textarea id="newComment" rows="4" placeholder="Write your comment here"></textarea>
+                                    <input type="hidden" id="companyNameInput" name="companyName" value="{{restaurant.name}}" />
+                                    <input type="hidden" id="usernameInput" name="username" value="{{loggedProfile.username}}" />
+                                    <button id="addCommentButton">Add Comment</button>
+                                </form>
+                            </div>
+                            <div id="commentsContainer">
+                                <div id="commentsLeft">
+                                <!-- Comments will be displayed here -->
+                                    {{#each commentsList}}
+                                        <div class="comment" id="commentLeft">
+                                            <h2>Review #{{this.id}}</h2>
+                                            <h3>Rating: {{this.rating}} / 5</h3>
+                                            <h4>By <a href="/user?name={{this.username}}">{{this.username}}</a></h4>
+                                            <p>{{this.commentText}}</p>
+                                            <button class="editCommentButton" id="{{this.id}}">Edit</button>
+                                            <button class="deleteCommentButton" id="{{this.id}}">Delete</button>
+                                            <button class="helpfulButton" id="{{this.id}}">Helpful</button>
+                                            <button class="replyButton" id="{{this.id}}">Reply</button>
+                                        </div>
+                                    {{/each}}
+                                </div>
+                                <div id="commentsRight">
+                                    {{#each repliesList}}
+                                        <div class="comment" id="commentRight">
+                                            <h2>Reply to Review#{{this.parent}}</h2>
+                                            <h4>By {{this.username}}</h4>
+                                            <p>{{this.commentText}}</p>
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
