@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 gender,
                 food,
                 username,
+                loggedUsername,
             }),
         });
 
